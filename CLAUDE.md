@@ -36,6 +36,20 @@ ces parties devront être repensées (stockage des données hébergé, plus de
 `start.bat`/fenêtre app). Plateforme, stockage et authentification **pas
 encore choisis** : à discuter, une étape à la fois, sans coder avant accord.
 
+Décisions du 2026-09-30 sur ce chantier :
+- Le **principe de fichier de données disparaîtra** (écran de connexion au
+  fichier, « Changer de fichier », sélecteur Windows, nom de sidebar tiré du
+  fichier), remplacé par une **connexion par mot de passe**. On le fait
+  **en même temps que l'hébergement** (pas de mot de passe local
+  provisoire, il faudrait le refaire) : choisir d'abord plateforme +
+  stockage + authentification. En attendant on continue l'esthétique en
+  local, sans toucher au mécanisme de fichier.
+- **Deux utilisateurs prévus** : l'utilisateur et sa compagne.
+  `archipilot-data/STUDIO CYMA.json` est le fichier de sa compagne : **à
+  conserver tel quel** (jamais commité, jamais modifié) ; ses données seront
+  remises dans l'appli hébergée plus tard. L'hébergement doit donc séparer
+  deux jeux de données (deux comptes/espaces, chacun son mot de passe).
+
 **Maintenance : à la fin d'une session avec des changements notables,
 mets à jour ce fichier** (section "État actuel" si l'architecture a changé,
 et ajoute une entrée dans "Journal des sessions"). Reste concis : l'objectif
