@@ -1,0 +1,9 @@
+# Node portable (92 Mo, à télécharger sur chaque poste, voir README)
+runtime/win/node.exe
+
+# Données réelles de l'utilisateur (projets clients) : jamais dans git
+archipilot-data/
+
+# Fichiers système / éditeur
+Thumbs.db
+.DS_Store

@@ -1,0 +1,11 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "archipilot",
+      "runtimeExecutable": "runtime\\win\\node.exe",
+      "runtimeArgs": ["server.js"],
+      "port": 5173
+    }
+  ]
+}

@@ -1,0 +1,57 @@
+/* print.css — feuille de style dédiée à l'impression (window.print()).
+   N'affiche que le contenu généré dans #print-root (ui/print.js) : la liste
+   des tâches actuellement filtrée, sans navigation ni boutons d'action. */
+
+@media print {
+  body * {
+    visibility: hidden;
+  }
+
+  #print-root,
+  #print-root * {
+    visibility: visible;
+  }
+
+  #print-root {
+    display: block !important;
+    position: absolute;
+    inset: 0;
+    padding: 1.5cm;
+    color: #000;
+    background: #fff;
+  }
+
+  #print-root h1 {
+    font-size: 18pt;
+    margin-bottom: 0.3cm;
+  }
+
+  .print-meta {
+    font-size: 9pt;
+    color: #444;
+    margin-bottom: 0.6cm;
+  }
+
+  .print-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 9pt;
+  }
+
+  .print-table th,
+  .print-table td {
+    border: 1px solid #999;
+    padding: 0.2cm 0.25cm;
+    text-align: left;
+    vertical-align: top;
+  }
+
+  .print-table th {
+    background: #eee;
+    font-weight: 700;
+  }
+
+  @page {
+    margin: 1.2cm;
+  }
+}

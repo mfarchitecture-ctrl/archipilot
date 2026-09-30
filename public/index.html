@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title id="page-title">ARCHIPILOT — Suivi de chantiers</title>
+  <link rel="icon" href="favicon.ico" sizes="any" />
+  <link rel="stylesheet" href="styles/main.css" />
+  <link rel="stylesheet" href="styles/print.css" media="print" />
+</head>
+<body>
+  <div id="app-background" aria-hidden="true"></div>
+  <div id="app" class="app" hidden>
+    <aside class="sidebar">
+      <div class="brand">
+        <div class="brand__row">
+          <span class="brand__mark" id="brand-mark" aria-hidden="true">A</span>
+          <span class="brand__word" id="brand-word">ARCHIPILOT</span>
+        </div>
+        <button type="button" id="btn-sidebar-toggle" class="sidebar-toggle" aria-label="Réduire le menu" title="Réduire le menu">
+          <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M15 5l-7 7 7 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+      </div>
+      <nav class="nav" id="nav">
+        <button type="button" class="nav-item" data-view="tasks">
+          <svg class="nav-item__icon" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4 6h2v2H4V6Zm4 0h12v2H8V6ZM4 11h2v2H4v-2Zm4 0h12v2H8v-2ZM4 16h2v2H4v-2Zm4 0h12v2H8v-2Z" fill="currentColor"/></svg>
+          <span class="nav-item__label">Vue d'ensemble des tâches</span>
+        </button>
+        <button type="button" class="nav-item active" data-view="projects">
+          <svg class="nav-item__icon" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M3 6a1 1 0 0 1 1-1h5l2 2h9a1 1 0 0 1 1 1v10a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V6Z" fill="currentColor"/></svg>
+          <span class="nav-item__label">Projets</span>
+        </button>
+      </nav>
+      <div class="sidebar-footer">
+        <p id="sync-status" class="sync-status">—</p>
+        <div class="sidebar-footer__row">
+          <button type="button" id="btn-select-file" class="btn btn-ghost btn-small">
+            <svg class="btn__icon" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4 4h16v16H4V4Zm0 6h16M9 20V10" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            Changer de fichier
+          </button>
+          <button type="button" id="btn-theme-toggle" class="theme-toggle" aria-label="Basculer le thème clair / sombre" title="Basculer le thème clair / sombre">
+            <svg class="theme-toggle__sun" viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="12" r="4.2" fill="currentColor"/><path d="M12 2.5v2.4M12 19.1v2.4M4.2 4.2l1.7 1.7M18.1 18.1l1.7 1.7M2.5 12h2.4M19.1 12h2.4M4.2 19.8l1.7-1.7M18.1 5.9l1.7-1.7" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+            <svg class="theme-toggle__moon" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M20 14.5A8.5 8.5 0 1 1 9.5 4a7 7 0 0 0 10.5 10.5Z" fill="currentColor"/></svg>
+          </button>
+          <button type="button" id="btn-appearance" class="theme-toggle" aria-label="Personnaliser l'apparence" title="Personnaliser l'apparence">
+            <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 21a9 9 0 1 1 0-18c4.4 0 8 3.2 8 7.2 0 2.4-1.9 4-4 4h-1.6c-.9 0-1.4 1.1-.8 1.8.6.7.2 1.8-.7 1.9-.3 0-.6.1-.9.1Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><circle cx="7.5" cy="10.5" r="1.3" fill="currentColor"/><circle cx="11.5" cy="7" r="1.3" fill="currentColor"/><circle cx="16" cy="10" r="1.3" fill="currentColor"/></svg>
+          </button>
+        </div>
+      </div>
+    </aside>
+
+    <main class="content">
+      <header class="topbar">
+        <h1 id="view-title">Projets</h1>
+        <div class="topbar-actions">
+          <button type="button" id="btn-pin-window" class="btn btn-secondary btn-pin" aria-pressed="false" title="Épingler la fenêtre au premier plan">
+            <svg class="btn__icon" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 17v5M9 10.76a2 2 0 0 1-1.11 1.79l-1.78.9A2 2 0 0 0 5 15.24V16a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-.76a2 2 0 0 0-1.11-1.79l-1.78-.9A2 2 0 0 1 15 10.76V7a1 1 0 0 1 1-1 2 2 0 0 0 0-4H8a2 2 0 0 0 0 4 1 1 0 0 1 1 1z" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
+          <button type="button" id="btn-print" class="btn btn-secondary">
+            <svg class="btn__icon" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M6 9V3h12v6M6 18H4a1 1 0 0 1-1-1v-6a1 1 0 0 1 1-1h16a1 1 0 0 1 1 1v6a1 1 0 0 1-1 1h-2M6 14h12v7H6v-7Z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg>
+            Imprimer
+          </button>
+        </div>
+      </header>
+      <div id="view-container" class="view-container"></div>
+    </main>
+  </div>
+
+  <section id="connect-screen" class="connect-screen">
+    <div class="connect-card">
+      <div class="connect-card__brand">
+        <span class="brand__mark brand__mark--lg" id="connect-brand-mark" aria-hidden="true">A</span>
+        <span id="connect-brand-word">ARCHIPILOT</span>
+      </div>
+      <p id="connect-message" class="connect-card__message">Connectez votre fichier de données pour commencer.</p>
+      <div class="connect-actions">
+        <button type="button" id="btn-pick-file" class="btn btn-primary btn-block">Choisir le fichier de données</button>
+        <button type="button" id="btn-create-file" class="btn btn-secondary btn-block">Créer un nouveau fichier</button>
+      </div>
+    </div>
+  </section>
+
+  <div id="modal-root"></div>
+  <div id="print-root" class="print-only"></div>
+
+  <script type="module" src="scripts/main.js"></script>
+</body>
+</html>

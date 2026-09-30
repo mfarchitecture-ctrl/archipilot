@@ -1,0 +1,7 @@
+Ce dossier doit contenir le fichier node.exe (Node.js portable Windows x64).
+
+Voir le README.md a la racine du projet, section "Installation", pour les
+instructions de telechargement.
+
+Une fois node.exe copie ici, ce fichier texte peut etre supprime (ou laisse,
+cela n'a pas d'impact).
