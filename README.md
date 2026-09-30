@@ -2,7 +2,7 @@
 
 Application locale, sans base de données ni hébergement, pour suivre les
 tâches de plusieurs projets ("chantiers"). Les données sont stockées dans un
-unique fichier JSON (`doda-data.json`) que vous placez où vous le souhaitez :
+unique fichier JSON (`archipilot-data.json`) que vous placez où vous le souhaitez :
 un dossier local, ou un dossier synchronisé (Dropbox, OneDrive, un lecteur
 réseau...) si vous voulez retrouver le même fichier sur plusieurs PC.
 
@@ -79,10 +79,10 @@ archipilot/
 2. **Connectez votre fichier de référence.** Au premier lancement,
    ARCHIPILOT vous propose deux options :
    - **« Choisir le fichier de données »** : si vous avez déjà un fichier
-     `doda-data.json` quelque part (par exemple parce qu'un autre PC l'a
+     `archipilot-data.json` quelque part (par exemple parce qu'un autre PC l'a
      déjà créé), sélectionnez-le.
    - **« Créer un nouveau fichier »** : si c'est la toute première fois,
-     choisissez l'emplacement et le nom (`doda-data.json` par défaut) —
+     choisissez l'emplacement et le nom (`archipilot-data.json` par défaut) —
      un dossier synchronisé si vous voulez le retrouver sur plusieurs PC,
      sinon n'importe quel dossier local. ARCHIPILOT l'initialise avec une
      structure vide.
@@ -95,7 +95,7 @@ archipilot/
 
 Répétez l'installation (étapes 1 et 2 ci-dessus — `node.exe` doit être copié
 sur **chaque** PC, il n'est pas partagé automatiquement). Si votre fichier
-`doda-data.json` vit dans un dossier synchronisé (Dropbox, OneDrive...), au
+`archipilot-data.json` vit dans un dossier synchronisé (Dropbox, OneDrive...), au
 premier lancement sur ce PC choisissez **« Choisir le fichier de données »**
 et sélectionnez ce même fichier une fois qu'il est synchronisé sur ce PC :
 les deux PC partageront alors les mêmes projets et tâches.
@@ -137,7 +137,7 @@ cliquez pas sur « Changer de fichier ».
 - **Imprimer** : imprime la liste des tâches actuellement filtrée/visible,
   dans une mise en page tableau propre (sans les boutons ni les filtres).
 - **Changer de fichier** (en bas de la barre latérale) : permet de
-  sélectionner un autre fichier `doda-data.json`, par exemple si vous
+  sélectionner un autre fichier `archipilot-data.json`, par exemple si vous
   changez d'emplacement de stockage.
 
 Chaque modification (ajout, édition, suppression) est **immédiatement**
@@ -152,7 +152,7 @@ affiche l'état de connexion et l'heure de la dernière écriture.
   pour le resélectionner, ou recréez-en un.
 - **"Le fichier de données contient du JSON invalide ou corrompu"** :
   quelqu'un (ou un logiciel) a modifié le fichier avec un contenu non
-  valide. Ouvrez `doda-data.json` avec un éditeur de texte pour corriger
+  valide. Ouvrez `archipilot-data.json` avec un éditeur de texte pour corriger
   l'erreur, ou restaurez une version précédente (historique des versions de
   votre service de synchronisation, ou une sauvegarde).
 - **"Impossible de contacter le serveur local ARCHIPILOT"** : le serveur
@@ -184,7 +184,7 @@ affiche l'état de connexion et l'heure de la dernière écriture.
   ouverte, pour le dépannage.
 - Le stockage (appels à l'API du serveur local) est isolé dans
   `public/scripts/storage.js`.
-- Structure du fichier `doda-data.json` :
+- Structure du fichier `archipilot-data.json` :
 
   ```json
   {

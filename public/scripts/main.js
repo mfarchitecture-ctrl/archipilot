@@ -254,7 +254,7 @@ async function initialiser() {
 
   if (!config.dataFilePath) {
     afficherEcranConnexion(
-      'Bienvenue ! Choisissez votre fichier de référence (doda-data.json), ou créez-en un nouveau.'
+      'Bienvenue ! Choisissez votre fichier de référence (archipilot-data.json), ou créez-en un nouveau.'
     );
     return;
   }

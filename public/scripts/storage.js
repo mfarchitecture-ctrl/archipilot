@@ -50,7 +50,7 @@ export async function getConfig() {
   return requeteJSON('/api/config');
 }
 
-/** Ouvre le sélecteur de fichier natif pour choisir un fichier doda-data.json
+/** Ouvre le sélecteur de fichier natif pour choisir un fichier archipilot-data.json
  *  existant. Le chemin choisi est mémorisé côté serveur (dans un fichier de
  *  config propre à ce PC) pour les prochains lancements. */
 export async function pickDataFile() {
@@ -59,7 +59,7 @@ export async function pickDataFile() {
   return resultat.path;
 }
 
-/** Propose de créer un nouveau fichier doda-data.json à l'emplacement de son
+/** Propose de créer un nouveau fichier archipilot-data.json à l'emplacement de son
  *  choix, et l'initialise avec la structure vide. */
 export async function createDataFile() {
   const resultat = await requeteJSON('/api/create-file', { method: 'POST' });

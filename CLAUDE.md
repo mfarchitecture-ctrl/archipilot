@@ -44,15 +44,14 @@ est de transmettre l'essentiel, pas de dupliquer la conversation.
 ## Qu'est-ce qu'ARCHIPILOT
 
 App locale de suivi de tâches multi-chantiers pour un architecte. Pas de
-base de données ni d'hébergement : un unique fichier JSON (`doda-data.json`
-— nom historique conservé volontairement, voir plus bas) contenu de
-projets/tâches, que l'utilisateur place où il veut (localement ou dans un
-dossier synchronisé). Zéro dépendance npm, JS vanilla, aucun build.
+base de données ni d'hébergement : un unique fichier JSON
+(`archipilot-data.json` par défaut) contenu de projets/tâches, que
+l'utilisateur place où il veut (localement ou dans un dossier synchronisé).
+Zéro dépendance npm, JS vanilla, aucun build.
 
-L'app s'appelait à l'origine "DODA" ; elle a été renommée "ARCHIPILOT" en
-cours de route. **Le nom de fichier `doda-data.json` reste tel quel
-délibérément** (demande explicite de l'utilisateur : ne pas renommer le
-fichier JSON lors du rebranding). Ne pas le "corriger" en `archipilot-data.json`.
+**Ne plus jamais écrire « DODA »** (nom de l'ancienne agence de
+l'utilisateur) : ni dans le code, ni dans les textes, ni dans les noms de
+fichiers. Demande explicite du 2026-09-30.
 
 ## Architecture
 
@@ -221,7 +220,7 @@ fichier JSON lors du rebranding). Ne pas le "corriger" en `archipilot-data.json`
   changer d'outil de synchro. Rester générique ("dossier synchronisé,
   Dropbox/OneDrive/...") dans les textes utilisateur et le README.
 - Logo/icône : la lettre dynamique dans la sidebar (première lettre du
-  fichier connecté, ex. "D" pour DODA.json) doit rester. L'icône de
+  fichier connecté, ex. "A" pour archipilot-data.json) doit rester. L'icône de
   fenêtre/taskbar (`public/favicon.ico`) est une icône lettre "A" simple
   générée nativement à plusieurs tailles — **ne pas** la remplacer par une
   image détaillée redimensionnée : testé, les visuels fins/détaillés
@@ -251,7 +250,7 @@ fichier JSON lors du rebranding). Ne pas le "corriger" en `archipilot-data.json`
   **rattache dans le `onClose`** de celle-ci (voir `ouvrirFormulaireTache`
   dans `projectModal.js`). Un seul listener Échap actif à la fois, donc pas
   d'ambiguïté sur lequel doit réagir.
-- Le fichier de données réel de l'utilisateur est `archipilot-data/DODA.json`
+- Le fichier de données réel de l'utilisateur est `archipilot-data/archipilot-data.json`
   (18 projets ; 18 tâches au 2026-09-16, l'utilisateur l'utilise activement
   entre les sessions — le nombre augmente, c'est normal) — **ne jamais
   écrire dedans pendant des tests**, toujours copier vers un fichier scratch
@@ -284,7 +283,7 @@ fichier JSON lors du rebranding). Ne pas le "corriger" en `archipilot-data.json`
   complète du stockage (File System Access API → API serveur Node,
   suppression définitive des re-demandes de permission). Lancement
   silencieux (`start.bat` auto-caché + arrêt auto à la fermeture).
-  Rebranding DODA → ARCHIPILOT (sauf `doda-data.json`). Personnalisation
+  Rebranding de l'app en ARCHIPILOT. Personnalisation
   d'apparence (couleur accent unique, couleur de fond, image de fond).
   Menu latéral repliable. Refonte des cartes projet (carré fixe, phase
   EDL/ESQ/AVP/DCE/DET/AOR, icônes). Renommage de projet déplacé dans la

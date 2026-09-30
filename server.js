@@ -225,7 +225,7 @@ const serveur = http.createServer(async (req, res) => {
     }
 
     if (req.url === '/api/create-file' && req.method === 'POST') {
-      const chemin = await ouvrirSelecteurNatif({ mode: 'save', suggestedName: 'doda-data.json' });
+      const chemin = await ouvrirSelecteurNatif({ mode: 'save', suggestedName: 'archipilot-data.json' });
       if (chemin) {
         if (!fs.existsSync(chemin)) fs.writeFileSync(chemin, JSON.stringify(STRUCTURE_INITIALE, null, 2));
         ecrireConfig({ dataFilePath: chemin });
