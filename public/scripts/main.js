@@ -58,7 +58,7 @@ function majNomApp(nomFichier) {
   connectBrandWord.textContent = nom;
   connectBrandMark.textContent = lettre;
 
-  pageTitle.textContent = `${nom} — Suivi de chantiers`;
+  pageTitle.textContent = `${nom} — Suivi des tâches de projets d'architecture`;
 }
 
 // --- Écran de connexion au fichier de données ---------------------------------

@@ -1,7 +1,7 @@
-# ARCHIPILOT — Suivi de tâches multi-chantiers
+# ARCHIPILOT — Suivi des tâches de projets d'architecture
 
 Application locale, sans base de données ni hébergement, pour suivre les
-tâches de plusieurs projets ("chantiers"). Les données sont stockées dans un
+tâches de plusieurs projets d'architecture. Les données sont stockées dans un
 unique fichier JSON (`archipilot-data.json`) que vous placez où vous le souhaitez :
 un dossier local, ou un dossier synchronisé (Dropbox, OneDrive, un lecteur
 réseau...) si vous voulez retrouver le même fichier sur plusieurs PC.

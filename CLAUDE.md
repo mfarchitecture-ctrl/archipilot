@@ -81,7 +81,8 @@ est de transmettre l'essentiel, pas de dupliquer la conversation.
 
 ## Qu'est-ce qu'ARCHIPILOT
 
-App locale de suivi de tâches multi-chantiers pour un architecte. Pas de
+App de suivi des tâches de projets d'architecture (pas de « suivi de
+chantier » : l'utilisateur y tient, ce n'est pas le même métier). Pas de
 base de données ni d'hébergement : un unique fichier JSON
 (`archipilot-data.json` par défaut) contenu de projets/tâches, que
 l'utilisateur place où il veut (localement ou dans un dossier synchronisé).
