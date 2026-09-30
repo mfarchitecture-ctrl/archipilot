@@ -300,7 +300,7 @@ try {
   // stockage indisponible : le thème suivra simplement le système
 }
 
-initialiserTheme(btnThemeToggle, CLE_THEME);
+initialiserTheme([btnThemeToggle, document.getElementById('login-theme-toggle')], CLE_THEME);
 
 btnAppearance.addEventListener('click', openAppearanceModal);
 appearance.init();

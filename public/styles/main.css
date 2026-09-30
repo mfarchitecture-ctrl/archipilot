@@ -1246,6 +1246,12 @@ input[type='search'].input {
 }
 
 /* Écran de connexion au compte (mode hébergé) */
+.login-theme {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+}
+
 .login-form {
   width: 100%;
   display: flex;

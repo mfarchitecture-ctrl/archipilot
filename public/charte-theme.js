@@ -1,4 +1,4 @@
-// charte-theme.js — interrupteur de thème clair/sombre commun (Version 1.3.0).
+// charte-theme.js — interrupteur de thème clair/sombre commun (Version 1.4.0).
 //
 // Même comportement que KELZONE : sans choix enregistré, l'appli suit la préférence du système
 // (le CSS s'en charge, sans JS) ; le bouton force un choix manuel, mémorisé dans localStorage
@@ -12,9 +12,12 @@
 // Usage :
 //   import { initialiserTheme } from './charte-theme.js';
 //   initialiserTheme(document.getElementById('bouton-theme'), 'monappli-theme');
+//   initialiserTheme(document.querySelectorAll('.bouton-theme'), 'monappli-theme'); // plusieurs
+// Plusieurs interrupteurs sur la même page restent synchronisés.
 // Valeurs stockées : 'dark' ou 'light'.
 
-export function initialiserTheme(bouton, cle) {
+export function initialiserTheme(boutons, cle) {
+  const liste = boutons instanceof Element ? [boutons] : [...boutons];
   const racine = document.documentElement;
   const systemeSombre = window.matchMedia ? window.matchMedia('(prefers-color-scheme: dark)') : null;
 
@@ -34,20 +37,24 @@ export function initialiserTheme(bouton, cle) {
 
   function actualiser() {
     const sombre = actuel() === 'dark';
-    bouton.classList.toggle('actif', sombre);
-    bouton.setAttribute('aria-pressed', sombre ? 'true' : 'false');
+    for (const bouton of liste) {
+      bouton.classList.toggle('actif', sombre);
+      bouton.setAttribute('aria-pressed', sombre ? 'true' : 'false');
+    }
   }
 
   const initial = enregistre();
   if (initial) racine.setAttribute('data-theme', initial);
   actualiser();
 
-  bouton.addEventListener('click', () => {
-    const nouveau = actuel() === 'dark' ? 'light' : 'dark';
-    try { localStorage.setItem(cle, nouveau); } catch (e) { /* stockage indisponible */ }
-    racine.setAttribute('data-theme', nouveau);
-    actualiser();
-  });
+  for (const bouton of liste) {
+    bouton.addEventListener('click', () => {
+      const nouveau = actuel() === 'dark' ? 'light' : 'dark';
+      try { localStorage.setItem(cle, nouveau); } catch (e) { /* stockage indisponible */ }
+      racine.setAttribute('data-theme', nouveau);
+      actualiser();
+    });
+  }
 
   if (systemeSombre && systemeSombre.addEventListener) systemeSombre.addEventListener('change', actualiser);
 }
