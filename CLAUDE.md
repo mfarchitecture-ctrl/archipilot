@@ -53,7 +53,11 @@ Décisions du 2026-09-30 sur ce chantier :
   AES-GCM qui ne quitte jamais le navigateur et un jeton d'accès envoyé
   au serveur (qui n'en garde que le hachage). **Mot de passe perdu =
   données perdues** : prévoir export de sauvegarde. Plan : 1) module de
-  chiffrement (FAIT, testé dans le navigateur) ; 2) écran de connexion ;
+  chiffrement (FAIT, testé dans le navigateur) ; 1 bis) API serveur
+  `worker.js` + `schema.sql` + `wrangler.jsonc` (FAIT, 24 tests passés sur
+  le simulateur local `outils/simulateur-cloudflare.mjs`, qui fait tourner
+  le même `worker.js` avec SQLite à la place de D1, port 8787, entrée
+  « simulateur-cloudflare » de `.claude/launch.json`) ; 2) écran de connexion ;
   3) nouvelle couche de stockage (texte chiffré uniquement) ; 4) import de
   l'existant + export de sauvegarde ; 5) Worker + D1 sur `preprod` ; 6)
   comptes utilisateur/compagne. Une étape à la fois, sans coder la
@@ -189,6 +193,21 @@ fichiers. Demande explicite du 2026-09-30.
   PC, pas synchronisés.
 - `node.exe` portable requis dans `runtime\win\node.exe` (téléchargé
   manuellement par l'utilisateur, pas commité).
+
+## Idées à discuter (ne pas coder sans en reparler)
+
+- **Raccourci global pour afficher l'appli** (ex. F7 → la fenêtre passe au
+  premier plan même si on est dans une autre appli). Une page web ne peut
+  pas capter une touche hors de sa fenêtre. Pistes : raccourci clavier
+  Windows sur le raccourci Bureau de l'appli installée (propriété
+  « Touche de raccourci » d'un .lnk, à tester avec l'appli installée depuis
+  Chrome/Edge), ou un petit outil tiers (AutoHotkey). À vérifier en réel.
+- **Saisie rapide d'une tâche** (ex. Ctrl+5 → champ flottant « projet +
+  tâche », création immédiate, projet proposé par autocomplétion).
+  Faisable dans l'appli quand elle a le focus. Attention : dans un onglet de
+  navigateur, Ctrl+chiffre change d'onglet et ne peut pas être intercepté ;
+  choisir un autre raccourci (ex. Alt+N) ou n'utiliser que l'appli
+  installée. Combinable avec l'idée précédente (afficher + saisir).
 
 ## Préférences UI établies (à respecter sans re-demander)
 

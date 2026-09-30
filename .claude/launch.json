@@ -6,6 +6,12 @@
       "runtimeExecutable": "runtime\\win\\node.exe",
       "runtimeArgs": ["server.js"],
       "port": 5173
+    },
+    {
+      "name": "simulateur-cloudflare",
+      "runtimeExecutable": "runtime\\win\\node.exe",
+      "runtimeArgs": ["outils/simulateur-cloudflare.mjs"],
+      "port": 8787
     }
   ]
 }

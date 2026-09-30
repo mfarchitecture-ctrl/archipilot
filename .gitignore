@@ -4,6 +4,9 @@ runtime/win/node.exe
 # Données réelles de l'utilisateur (projets clients) : jamais dans git
 archipilot-data/
 
+# Base locale du simulateur Cloudflare (outils/simulateur-cloudflare.mjs)
+.dev/
+
 # Fichiers système / éditeur
 Thumbs.db
 .DS_Store

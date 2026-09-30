@@ -1,0 +1,17 @@
+// Configuration Cloudflare d'ARCHIPILOT hébergé (même principe que KELZONE).
+// Seul le dossier public/ est publié ; worker.js répond aux adresses /api/*.
+{
+  "name": "archipilot",
+  "main": "worker.js",
+  "compatibility_date": "2026-09-21",
+  "assets": { "directory": "./public", "binding": "ASSETS" },
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "archipilot",
+      // À remplacer par l'identifiant de la base créée dans Cloudflare (Workers & Pages > D1).
+      "database_id": "A_REMPLIR"
+    }
+  ]
+  // Secret à définir dans Cloudflare (Settings > Variables and Secrets) : CODE_INVITATION.
+}
