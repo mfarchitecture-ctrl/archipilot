@@ -1,6 +1,7 @@
 // main.js — point d'entrée : orchestre le stockage, l'état et les vues.
 
 import * as storage from './storage.js';
+import * as compte from './compte.js';
 import * as state from './state.js';
 import * as appearance from './appearance.js';
 import { withFocusPreserved } from './utils/dom.js';
@@ -10,6 +11,9 @@ import { renderProjects } from './ui/projects.js';
 import { openProjectModal } from './ui/projectModal.js';
 import { openAppearanceModal } from './ui/appearanceModal.js';
 import { preparerImpression } from './ui/print.js';
+import { afficherConnexion } from './ui/loginScreen.js';
+import { openAccountModal } from './ui/accountModal.js';
+import { icone } from '../charte-icones.js';
 
 const appRoot = document.getElementById('app');
 const connectScreen = document.getElementById('connect-screen');
@@ -36,6 +40,9 @@ const TITRES_VUES = { tasks: "Vue d'ensemble des tâches", projects: 'Projets' }
 
 let cheminFichierActuel = null;
 let nomAppActuel = 'ARCHIPILOT';
+// Mode « compte » = appli hébergée (worker.js). Le mode fichier (server.js local) sera supprimé
+// une fois l'hébergement en service.
+let modeCompte = false;
 
 /** Nom de fichier (sans dossier) à partir d'un chemin Windows ou POSIX. */
 function nomDepuisChemin(chemin) {
@@ -75,6 +82,12 @@ function afficherApp() {
 }
 
 function majStatutSynchro(dateEcriture = null) {
+  if (modeCompte) {
+    const heure = dateEcriture ? dateEcriture.toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit' }) : null;
+    syncStatus.textContent = `Connecté : ${compte.identifiant()}` + (heure ? ` — enregistré à ${heure}` : '');
+    syncStatus.classList.remove('sync-status--error');
+    return;
+  }
   if (!cheminFichierActuel) {
     syncStatus.textContent = 'Aucun fichier connecté.';
     return;
@@ -92,10 +105,21 @@ function majStatutSynchro(dateEcriture = null) {
 /** Fonction de persistance passée à state.js : écrit sur disque après chaque mutation. */
 async function persister(donnees) {
   try {
-    const dateEcriture = await storage.writeData(donnees);
+    const dateEcriture = modeCompte ? await compte.enregistrer(donnees) : await storage.writeData(donnees);
     majStatutSynchro(dateEcriture);
   } catch (erreur) {
-    syncStatus.textContent = `⚠ ${erreur.message}`;
+    if (modeCompte && erreur.statut === 401) {
+      afficherConnexionCompte({
+        identifiant: compte.identifiant() || '',
+        message: 'Votre session a expiré : reconnectez-vous. La dernière modification n’a pas été enregistrée.',
+      });
+      return;
+    }
+    const message =
+      modeCompte && erreur.statut === 409
+        ? 'Données modifiées depuis un autre appareil : rechargez la page (la dernière modification ici n’est pas enregistrée).'
+        : erreur.message;
+    syncStatus.textContent = `⚠ ${message}`;
     syncStatus.classList.add('sync-status--error');
   }
 }
@@ -192,8 +216,76 @@ btnPickFile.addEventListener('click', choisirFichier);
 btnCreateFile.addEventListener('click', creerFichier);
 
 btnSelectFileHeader.addEventListener('click', () => {
+  if (modeCompte) {
+    openAccountModal({
+      identifiant: compte.identifiant(),
+      onImporter: async (donnees) => {
+        await compte.enregistrer(donnees);
+        state.setData(donnees);
+        majStatutSynchro(new Date());
+      },
+      onDeconnecter: async () => {
+        await compte.seDeconnecter();
+        window.location.reload();
+      },
+    });
+    return;
+  }
   afficherEcranConnexion('Choisissez un autre fichier de données.');
 });
+
+// --- Mode compte (appli hébergée) -------------------------------------------------
+
+function afficherConnexionCompte({ identifiant = '', message = '' } = {}) {
+  appRoot.hidden = true;
+  afficherConnexion({ identifiant, message, onConnecte: ouvrirDonneesCompte });
+}
+
+async function ouvrirDonneesCompte() {
+  let donnees;
+  try {
+    donnees = await compte.chargerDonnees();
+  } catch (erreur) {
+    if (erreur.name === 'ErreurDechiffrement') {
+      await compte.oublierCleMemorisee();
+      afficherConnexionCompte({
+        identifiant: compte.identifiant() || '',
+        message: 'Impossible de déchiffrer vos données avec cette clé : saisissez à nouveau votre mot de passe.',
+      });
+      return;
+    }
+    afficherConnexionCompte({ identifiant: compte.identifiant() || '', message: erreur.message });
+    return;
+  }
+  state.init(persister);
+  state.setData(donnees);
+  majStatutSynchro();
+  afficherApp();
+  renderCurrentView();
+}
+
+async function demarrerModeCompte() {
+  modeCompte = true;
+  majNomApp(null);
+  btnPinWindow.hidden = true;
+  btnSelectFileHeader.replaceChildren(icone('utilisateur', { taille: 15, classe: 'btn__icon' }), 'Mon compte');
+
+  let reprise;
+  try {
+    reprise = await compte.reprendreSession();
+  } catch (erreur) {
+    afficherConnexionCompte({ message: erreur.message });
+    return;
+  }
+  if (reprise.deverrouille) {
+    await ouvrirDonneesCompte();
+    return;
+  }
+  afficherConnexionCompte({
+    identifiant: reprise.identifiant || '',
+    message: reprise.identifiant ? 'Saisissez votre mot de passe pour déverrouiller vos données.' : '',
+  });
+}
 
 // --- Thème clair / sombre (préférence d'affichage, indépendante des données) -----
 
@@ -239,6 +331,11 @@ async function initialiser() {
     config = await storage.getConfig();
   } catch (erreur) {
     afficherEcranConnexion(erreur.message);
+    return;
+  }
+
+  if (config.mode === 'compte') {
+    await demarrerModeCompte();
     return;
   }
 

@@ -1,4 +1,4 @@
-// charte-icones.js — pictogrammes communs des applications (Version 1.3.0).
+// charte-icones.js — pictogrammes communs des applications (Version 1.4.0).
 //
 // Style KELZONE : icônes « au trait », viewBox 24x24, trait de 2, bouts et jointures arrondis,
 // couleur = currentColor (elles prennent la couleur du texte, donc celle de l'interface).
@@ -36,6 +36,11 @@ export const ICONES = {
   'chevron-haut': '<path d="m18 15-6-6-6 6"/>',
   'fleche-haut': '<path d="m5 12 7-7 7 7"/><path d="M12 19V5"/>',
   'fleche-bas': '<path d="M12 5v14"/><path d="m19 12-7 7-7-7"/>',
+  utilisateur: '<path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/>',
+  deconnexion: '<path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" x2="9" y1="12" y2="12"/>',
+  telecharger: '<path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" x2="12" y1="15" y2="3"/>',
+  importer: '<path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" x2="12" y1="3" y2="15"/>',
+  cadenas: '<rect width="18" height="11" x="3" y="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/>',
   partager: '<circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.6" y1="13.5" x2="15.4" y2="17.5"/><line x1="15.4" y1="6.5" x2="8.6" y2="10.5"/>',
   favori: '<polygon points="12 2 15.1 8.3 22 9.3 17 14.1 18.2 21 12 17.8 5.8 21 7 14.1 2 9.3 8.9 8.3 12 2"/>',
   lire: '<polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M15.5 8.5a5 5 0 0 1 0 7"/><path d="M19 5a10 10 0 0 1 0 14"/>',

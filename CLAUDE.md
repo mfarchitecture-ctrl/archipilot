@@ -210,6 +210,13 @@ fichiers. Demande explicite du 2026-09-30.
   navigateur, Ctrl+chiffre change d'onglet et ne peut pas être intercepté ;
   choisir un autre raccourci (ex. Alt+N) ou n'utiliser que l'appli
   installée. Combinable avec l'idée précédente (afficher + saisir).
+- **Deux façons d'ouvrir la même appli hébergée** (idée de l'utilisateur) :
+  navigateur, ou petite appli Windows qui n'affiche que la version en
+  ligne (rien stocké en local) et apporte les raccourcis globaux (F7,
+  saisie rapide) et l'épinglage au premier plan. Ordre prévu : 1) tester
+  l'installation PWA depuis Chrome/Edge + touche de raccourci Windows ;
+  2) si insuffisant, .exe léger avec Tauri (WebView2). Sans certificat de
+  signature, Windows affiche un avertissement SmartScreen à l'installation.
 
 ## Préférences UI établies (à respecter sans re-demander)
 

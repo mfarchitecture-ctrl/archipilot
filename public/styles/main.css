@@ -1245,6 +1245,45 @@ input[type='search'].input {
   line-height: 1.55;
 }
 
+/* Écran de connexion au compte (mode hébergé) */
+.login-form {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 0.9rem;
+  text-align: left;
+}
+
+.login-form .form-field .input {
+  width: 100%;
+}
+
+.login-form .btn-primary {
+  margin-top: 0.3rem;
+}
+
+.login-note {
+  display: flex;
+  gap: 0.6rem;
+  align-items: flex-start;
+  text-align: left;
+  font-size: 0.78rem;
+  line-height: 1.5;
+  color: var(--text-muted);
+  border-top: 1px solid var(--border);
+  padding-top: 1rem;
+}
+
+.login-note .icone {
+  width: 16px;
+  height: 16px;
+  margin-top: 0.1rem;
+}
+
+.compte-identifiant {
+  font-weight: 600;
+}
+
 .connect-actions {
   display: flex;
   flex-direction: column;
