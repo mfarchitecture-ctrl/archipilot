@@ -75,7 +75,11 @@ Décisions du 2026-09-30 sur ce chantier :
   À reconsidérer si le nombre d'utilisateurs augmente.
 - **Cloudflare** : dépôt relié par l'utilisateur ; base D1 `archipilot`
   (id dans `wrangler.jsonc`, région Western Europe, juridiction « None »).
-  Tables à créer une fois via la console D1 avec `schema.sql`.
+  Tables à créer une fois via la console D1 avec `schema.sql`. La préprod
+  utilise les « Worker Previews » de Cloudflare (2026), qui n'héritent pas
+  de la production : bloc `previews` de `wrangler.jsonc` avec une base D1
+  séparée `archipilot-preprod`, pour que les essais ne touchent jamais les
+  vraies données. Commande de préprod : `npx wrangler preview`.
 - **Deux utilisateurs prévus** : l'utilisateur et sa compagne.
   `archipilot-data/STUDIO CYMA.json` est le fichier de sa compagne : **à
   conserver tel quel** (jamais commité, jamais modifié) ; ses données seront

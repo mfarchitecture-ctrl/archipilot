@@ -1,5 +1,11 @@
 // Configuration Cloudflare d'ARCHIPILOT hébergé (même principe que KELZONE).
 // Seul le dossier public/ est publié ; worker.js répond aux adresses /api/*.
+//
+// Production (branche main) : réglages du niveau principal.
+// Préprod (branche preprod) : « Worker Previews » de Cloudflare, qui n'héritent PAS de la
+// production : le bloc « previews » déclare sa propre base D1, séparée, pour que les comptes
+// et données d'essai ne touchent jamais les vraies données.
+// Secret facultatif CODE_INVITATION (Settings > Variables and Secrets) : absent = inscription libre.
 {
   "name": "archipilot",
   "main": "worker.js",
@@ -9,9 +15,18 @@
     {
       "binding": "DB",
       "database_name": "archipilot",
-      // Base créée le 2026-10-01 dans Cloudflare (D1 SQL database).
+      // Base de production, créée le 2026-10-01.
       "database_id": "72c5f5e8-593e-4d17-a6a5-26a26a12d529"
     }
-  ]
-  // Secret à définir dans Cloudflare (Settings > Variables and Secrets) : CODE_INVITATION.
+  ],
+  "previews": {
+    "d1_databases": [
+      {
+        "binding": "DB",
+        "database_name": "archipilot-preprod",
+        // Base de test de la préprod, créée le 2026-10-01.
+        "database_id": "c5f32bd0-e912-4cd5-8938-ec0d77506d43"
+      }
+    ]
+  }
 }
