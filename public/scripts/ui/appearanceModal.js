@@ -54,10 +54,10 @@ export function openAppearanceModal() {
       'Fond par défaut'
     );
 
-    const apercuFond = el('div', {
-      className: 'bg-preview',
-      style: urlApercuFond ? `background-image: url("${urlApercuFond}")` : '',
-    });
+    const apercuFond = el('div', { className: 'bg-preview' });
+    // Via le CSSOM plutôt qu'un attribut style : compatible avec la politique de sécurité
+    // (CSP) qui interdit les styles en ligne.
+    if (urlApercuFond) apercuFond.style.backgroundImage = `url("${urlApercuFond}")`;
 
     const champFichier = el('input', {
       type: 'file',

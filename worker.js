@@ -206,7 +206,14 @@ async function noterEchec(env, cle) {
 function json(objet, statut = 200, entetes = {}) {
   return new Response(JSON.stringify(objet), {
     status: statut,
-    headers: { 'Content-Type': 'application/json; charset=utf-8', 'Cache-Control': 'no-store', ...entetes },
+    headers: {
+      'Content-Type': 'application/json; charset=utf-8',
+      'Cache-Control': 'no-store',
+      'X-Content-Type-Options': 'nosniff',
+      'Referrer-Policy': 'no-referrer',
+      'Content-Security-Policy': "default-src 'none'; frame-ancestors 'none'",
+      ...entetes,
+    },
   });
 }
 

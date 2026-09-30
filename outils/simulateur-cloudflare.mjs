@@ -42,16 +42,41 @@ const TYPES = {
   '.json': 'application/json', '.ico': 'image/x-icon', '.woff2': 'font/woff2', '.svg': 'image/svg+xml', '.png': 'image/png',
 };
 
+// En-têtes de public/_headers (bloc « /* » uniquement), appliqués comme le fait Cloudflare.
+function lireEntetesGlobaux() {
+  const fichier = path.join(PUBLIC, '_headers');
+  if (!fs.existsSync(fichier)) return {};
+  const entetes = {};
+  let dansBlocGlobal = false;
+  for (const ligne of fs.readFileSync(fichier, 'utf8').split(/\r?\n/)) {
+    if (!ligne.trim() || ligne.trim().startsWith('#')) continue;
+    if (!/^\s/.test(ligne)) {
+      dansBlocGlobal = ligne.trim() === '/*';
+      continue;
+    }
+    if (dansBlocGlobal) {
+      const i = ligne.indexOf(':');
+      entetes[ligne.slice(0, i).trim()] = ligne.slice(i + 1).trim();
+    }
+  }
+  return entetes;
+}
+
 const ASSETS = {
   async fetch(requete) {
     let chemin = decodeURIComponent(new URL(requete.url).pathname);
     if (chemin.endsWith('/')) chemin += 'index.html';
     const fichier = path.join(PUBLIC, chemin);
-    if (!fichier.startsWith(PUBLIC) || !fs.existsSync(fichier) || fs.statSync(fichier).isDirectory()) {
+    const interdit = path.basename(fichier) === '_headers';
+    if (interdit || !fichier.startsWith(PUBLIC) || !fs.existsSync(fichier) || fs.statSync(fichier).isDirectory()) {
       return new Response('Introuvable', { status: 404 });
     }
     return new Response(fs.readFileSync(fichier), {
-      headers: { 'Content-Type': TYPES[path.extname(fichier)] || 'application/octet-stream', 'Cache-Control': 'no-store' },
+      headers: {
+        ...lireEntetesGlobaux(),
+        'Content-Type': TYPES[path.extname(fichier)] || 'application/octet-stream',
+        'Cache-Control': 'no-store',
+      },
     });
   },
 };
