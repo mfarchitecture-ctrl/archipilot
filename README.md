@@ -1,4 +1,4 @@
-# ARCHIPILOT — Suivi des tâches de projets d'architecture
+# ARCHIPILOT — Suivi des tâches projets
 
 Application locale, sans base de données ni hébergement, pour suivre les
 tâches de plusieurs projets d'architecture. Les données sont stockées dans un
