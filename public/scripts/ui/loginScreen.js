@@ -5,7 +5,7 @@
 import * as compte from '../compte.js';
 
 const LONGUEUR_MIN_MDP = 12;
-const IDENTIFIANT_VALIDE = /^[a-z0-9._-]{3,64}$/;
+const IDENTIFIANT_VALIDE = /^[a-z0-9._-]{2,64}$/;
 const MESSAGE_CONNEXION = 'Connectez-vous pour retrouver vos projets.';
 const MESSAGE_CREATION =
   'Créez votre compte. Choisissez un mot de passe long (12 caractères minimum) : il sert aussi de clé pour chiffrer vos données.';
@@ -50,7 +50,7 @@ export function afficherConnexion({ identifiant = '', message = '', avecCode = f
   function verifier() {
     const id = champId.value.trim().toLowerCase();
     if (!IDENTIFIANT_VALIDE.test(id)) {
-      return 'Identifiant : 3 à 64 caractères (lettres sans accent, chiffres, point, tiret).';
+      return 'Identifiant : 2 à 64 caractères (lettres sans accent, chiffres, point, tiret).';
     }
     if (!champMdp.value) return 'Saisissez votre mot de passe.';
     if (modeCreation) {

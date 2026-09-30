@@ -15,7 +15,7 @@ const MAX_TENTATIVES = 10;
 const FENETRE_TENTATIVES_S = 15 * 60;
 const TAILLE_MAX_OCTETS = 5 * 1024 * 1024;
 const NOM_COOKIE = 'archipilot_session';
-const IDENTIFIANT_VALIDE = /^[a-z0-9._-]{3,64}$/;
+const IDENTIFIANT_VALIDE = /^[a-z0-9._-]{2,64}$/;
 const JETON_VALIDE = /^[A-Za-z0-9_-]{43}$/;
 
 export default {
@@ -71,7 +71,7 @@ async function inscription(requete, env) {
 
   const identifiant = normaliserIdentifiant(corps.identifiant);
   if (!IDENTIFIANT_VALIDE.test(identifiant)) {
-    return json({ erreur: 'Identifiant invalide : 3 à 64 caractères, lettres, chiffres, point, tiret.' }, 400);
+    return json({ erreur: 'Identifiant invalide : 2 à 64 caractères, lettres, chiffres, point, tiret.' }, 400);
   }
   if (typeof corps.jeton !== 'string' || !JETON_VALIDE.test(corps.jeton)) return json({ erreur: 'Requête invalide.' }, 400);
 
