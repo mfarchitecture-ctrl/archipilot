@@ -44,6 +44,20 @@ Décisions du 2026-09-30 sur ce chantier :
   provisoire, il faudrait le refaire) : choisir d'abord plateforme +
   stockage + authentification. En attendant on continue l'esthétique en
   local, sans toucher au mécanisme de fichier.
+- **Stockage retenu : chiffrement de bout en bout.** Les données sont
+  chiffrées dans le navigateur (WebCrypto, `public/scripts/utils/
+  crypto-donnees.js`) ; le serveur (prévu : Cloudflare Worker + D1) ne voit
+  jamais que du texte chiffré, car l'utilisateur craint d'exposer des
+  données clients en ligne. Du mot de passe + identifiant on dérive deux
+  valeurs indépendantes (PBKDF2-SHA256 600 000 it. puis HKDF) : une clé
+  AES-GCM qui ne quitte jamais le navigateur et un jeton d'accès envoyé
+  au serveur (qui n'en garde que le hachage). **Mot de passe perdu =
+  données perdues** : prévoir export de sauvegarde. Plan : 1) module de
+  chiffrement (FAIT, testé dans le navigateur) ; 2) écran de connexion ;
+  3) nouvelle couche de stockage (texte chiffré uniquement) ; 4) import de
+  l'existant + export de sauvegarde ; 5) Worker + D1 sur `preprod` ; 6)
+  comptes utilisateur/compagne. Une étape à la fois, sans coder la
+  suivante sans accord.
 - **Deux utilisateurs prévus** : l'utilisateur et sa compagne.
   `archipilot-data/STUDIO CYMA.json` est le fichier de sa compagne : **à
   conserver tel quel** (jamais commité, jamais modifié) ; ses données seront
