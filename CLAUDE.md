@@ -68,6 +68,14 @@ Décisions du 2026-09-30 sur ce chantier :
   d'infrastructure commerciale (facturation, conditions de vente...), pas de
   sur-ingénierie. Garder seulement la porte ouverte : charte commune,
   données exportables, pas de service tiers inutile.
+- **Inscription libre (2026-10-01)** : l'utilisateur a retiré le code
+  d'invitation (≈ 5 personnes, lui + compagne + collègues). Mécanisme gardé
+  mais inactif : il suffit de définir le secret `CODE_INVITATION` dans le
+  Worker Cloudflare pour l'exiger à nouveau (le champ réapparaît tout seul).
+  À reconsidérer si le nombre d'utilisateurs augmente.
+- **Cloudflare** : dépôt relié par l'utilisateur ; base D1 `archipilot`
+  (id dans `wrangler.jsonc`, région Western Europe, juridiction « None »).
+  Tables à créer une fois via la console D1 avec `schema.sql`.
 - **Deux utilisateurs prévus** : l'utilisateur et sa compagne.
   `archipilot-data/STUDIO CYMA.json` est le fichier de sa compagne : **à
   conserver tel quel** (jamais commité, jamais modifié) ; ses données seront

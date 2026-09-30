@@ -5,7 +5,8 @@
 //
 // - Les fichiers de public/ sont servis comme les « assets » de Cloudflare.
 // - La base D1 est simulée par SQLite (intégré à Node 24), fichier .dev/archipilot-local.sqlite.
-// - CODE_INVITATION vaut « essai-local » sauf si la variable d'environnement est définie.
+// - Comme en production : pas de CODE_INVITATION (inscription libre), sauf si la variable
+//   d'environnement CODE_INVITATION est définie avant le lancement.
 
 import http from 'node:http';
 import fs from 'node:fs';
@@ -81,7 +82,7 @@ const ASSETS = {
   },
 };
 
-const env = { DB: D1, ASSETS, CODE_INVITATION: process.env.CODE_INVITATION ?? 'essai-local' };
+const env = { DB: D1, ASSETS, CODE_INVITATION: process.env.CODE_INVITATION || undefined };
 
 http.createServer(async (req, res) => {
   try {

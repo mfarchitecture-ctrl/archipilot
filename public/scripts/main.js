@@ -43,6 +43,7 @@ let nomAppActuel = 'ARCHIPILOT';
 // Mode « compte » = appli hébergée (worker.js). Le mode fichier (server.js local) sera supprimé
 // une fois l'hébergement en service.
 let modeCompte = false;
+let inscriptionAvecCode = false;
 
 /** Nom de fichier (sans dossier) à partir d'un chemin Windows ou POSIX. */
 function nomDepuisChemin(chemin) {
@@ -238,7 +239,7 @@ btnSelectFileHeader.addEventListener('click', () => {
 
 function afficherConnexionCompte({ identifiant = '', message = '' } = {}) {
   appRoot.hidden = true;
-  afficherConnexion({ identifiant, message, onConnecte: ouvrirDonneesCompte });
+  afficherConnexion({ identifiant, message, avecCode: inscriptionAvecCode, onConnecte: ouvrirDonneesCompte });
 }
 
 async function ouvrirDonneesCompte() {
@@ -264,8 +265,9 @@ async function ouvrirDonneesCompte() {
   renderCurrentView();
 }
 
-async function demarrerModeCompte() {
+async function demarrerModeCompte(config) {
   modeCompte = true;
+  inscriptionAvecCode = Boolean(config.codeInvitation);
   majNomApp(null);
   btnPinWindow.hidden = true;
   btnSelectFileHeader.replaceChildren(icone('utilisateur', { taille: 15, classe: 'btn__icon' }), 'Mon compte');
@@ -335,7 +337,7 @@ async function initialiser() {
   }
 
   if (config.mode === 'compte') {
-    await demarrerModeCompte();
+    await demarrerModeCompte(config);
     return;
   }
 

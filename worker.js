@@ -7,7 +7,8 @@
 //
 // Variables d'environnement :
 //   DB               base D1 (tables : schema.sql)
-//   CODE_INVITATION  secret exigé pour créer un compte (absent = inscriptions fermées)
+//   CODE_INVITATION  secret facultatif : s'il est défini, il est exigé pour créer un compte ;
+//                    absent = inscription libre (choix du 2026-10-01, ~5 utilisateurs prévus)
 
 const DUREE_SESSION_S = 30 * 24 * 3600;
 const MAX_TENTATIVES = 10;
@@ -42,7 +43,7 @@ async function router(requete, env, url) {
 
   switch (route) {
     case 'GET /api/config':
-      return json({ mode: 'compte' });
+      return json({ mode: 'compte', codeInvitation: Boolean(env.CODE_INVITATION) });
     case 'POST /api/inscription':
       return inscription(requete, env);
     case 'POST /api/connexion':
@@ -65,12 +66,8 @@ async function router(requete, env, url) {
 // --- Comptes -----------------------------------------------------------------------------
 
 async function inscription(requete, env) {
-  if (!env.CODE_INVITATION) return json({ erreur: 'Les inscriptions sont fermées.' }, 403);
   const corps = await lireCorps(requete);
   if (!corps) return json({ erreur: 'Requête invalide.' }, 400);
-
-  const limite = await verifierLimite(env, 'inscription');
-  if (limite) return limite;
 
   const identifiant = normaliserIdentifiant(corps.identifiant);
   if (!IDENTIFIANT_VALIDE.test(identifiant)) {
@@ -78,10 +75,14 @@ async function inscription(requete, env) {
   }
   if (typeof corps.jeton !== 'string' || !JETON_VALIDE.test(corps.jeton)) return json({ erreur: 'Requête invalide.' }, 400);
 
-  const codeOk = egaliteConstante(await sha256(String(corps.code || '')), await sha256(env.CODE_INVITATION));
-  if (!codeOk) {
-    await noterEchec(env, 'inscription');
-    return json({ erreur: "Code d'invitation incorrect." }, 403);
+  if (env.CODE_INVITATION) {
+    const limite = await verifierLimite(env, 'inscription');
+    if (limite) return limite;
+    const codeOk = egaliteConstante(await sha256(String(corps.code || '')), await sha256(env.CODE_INVITATION));
+    if (!codeOk) {
+      await noterEchec(env, 'inscription');
+      return json({ erreur: "Code d'invitation incorrect." }, 403);
+    }
   }
 
   const existe = await env.DB.prepare('SELECT 1 AS x FROM utilisateurs WHERE identifiant = ?').bind(identifiant).first();

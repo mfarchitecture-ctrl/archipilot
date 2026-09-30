@@ -14,7 +14,7 @@ const MESSAGE_CREATION =
  * Affiche l'écran de connexion. `onConnecte` est appelée une fois la connexion réussie
  * (la clé de chiffrement est alors disponible dans compte.js).
  */
-export function afficherConnexion({ identifiant = '', message = '', onConnecte }) {
+export function afficherConnexion({ identifiant = '', message = '', avecCode = false, onConnecte }) {
   const $ = (id) => document.getElementById(id);
   const ecran = $('login-screen');
   const form = $('login-form');
@@ -39,7 +39,7 @@ export function afficherConnexion({ identifiant = '', message = '', onConnecte }
 
   function majMode() {
     blocConfirmation.hidden = !modeCreation;
-    blocCode.hidden = !modeCreation;
+    blocCode.hidden = !modeCreation || !avecCode;
     champMdp.autocomplete = modeCreation ? 'new-password' : 'current-password';
     valider.textContent = modeCreation ? 'Créer mon compte' : 'Se connecter';
     bascule.textContent = modeCreation ? "J'ai déjà un compte" : 'Créer un compte';
@@ -56,7 +56,7 @@ export function afficherConnexion({ identifiant = '', message = '', onConnecte }
     if (modeCreation) {
       if (champMdp.value.length < LONGUEUR_MIN_MDP) return `Le mot de passe doit faire au moins ${LONGUEUR_MIN_MDP} caractères.`;
       if (champMdp.value !== champMdp2.value) return 'Les deux mots de passe ne correspondent pas.';
-      if (!champCode.value.trim()) return "Saisissez le code d'invitation.";
+      if (avecCode && !champCode.value.trim()) return "Saisissez le code d'invitation.";
     }
     return '';
   }
