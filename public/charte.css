@@ -1,0 +1,138 @@
+/* =====================================================================================
+   CHARTE GRAPHIQUE — socle commun des applications (KELZONE, ARCHIPILOT, ...)
+   Version 1.1.0 — variables, polices, base. Les composants sont dans charte-composants.css.
+
+   Règle maîtresse : le noir est l'interface ; la couleur est une donnée (statut,
+   priorité, catégorie) ou une erreur. Aucune couleur d'accent décorative.
+
+   Thèmes : clair par défaut ; sombre selon le système (prefers-color-scheme) ;
+   choix manuel en posant data-theme="light" ou "dark" sur <html>.
+
+   Ne modifier ce fichier qu'ici (dépôt « charte »), puis le recopier tel quel dans
+   chaque application. Le CSS propre à une appli va dans son propre fichier.
+   ===================================================================================== */
+
+@font-face { font-family: 'Outfit'; font-weight: 500; font-style: normal; font-display: swap; src: url('polices/outfit-latin-500-normal.woff2') format('woff2'); }
+@font-face { font-family: 'Outfit'; font-weight: 600; font-style: normal; font-display: swap; src: url('polices/outfit-latin-600-normal.woff2') format('woff2'); }
+@font-face { font-family: 'Outfit'; font-weight: 700; font-style: normal; font-display: swap; src: url('polices/outfit-latin-700-normal.woff2') format('woff2'); }
+
+/* --- Variables : thème clair ------------------------------------------------------ */
+:root {
+  --noir: #141414;
+  --gris-fonce: #4b4b4b;
+  --gris: #8a8a8a;
+  --gris-clair: #e5e5e2;
+  --fond: #f5f5f3;
+  --surface: #fff;
+  --teinte: #efefec;
+  --teinte-resume: #fafaf8;
+  --bouton-fond: #141414;
+  --bouton-texte: #fff;
+  --ligne: rgba(20, 20, 20, .09);
+  --ligne-forte: rgba(20, 20, 20, .16);
+  --verre: rgba(255, 255, 255, .86);
+  --ombre-1: 0 1px 2px rgba(20,20,20,.05), 0 1px 1px rgba(20,20,20,.03);
+  --ombre-2: 0 1px 2px rgba(20,20,20,.06), 0 6px 20px -4px rgba(20,20,20,.14);
+  --ombre-3: 0 2px 6px rgba(20,20,20,.08), 0 24px 60px -12px rgba(20,20,20,.30);
+  --anneau: 0 0 0 3px rgba(20, 20, 20, .12);
+  --voile: rgba(20, 20, 20, .45);
+
+  /* Couleurs de donnée (jamais décoratives) */
+  --couleur-erreur: #b42318;
+  --couleur-succes: #17803d;
+  --couleur-alerte: #b25e09;
+  --couleur-info: #1d5fa8;
+
+  /* Formes et rythme */
+  --rayon-s: 6px;
+  --rayon-m: 10px;
+  --rayon-l: 16px;
+  --police-interface: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --police-titre: Outfit, var(--police-interface);
+  --transition: .15s ease;
+}
+
+/* --- Variables : thème sombre (système, sauf si l'utilisateur a forcé le clair) ---- */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --noir: #ededed;
+    --gris-fonce: #b4b4b8;
+    --gris: #86868b;
+    --gris-clair: #2c2c30;
+    --fond: #0e0e10;
+    --surface: #17171a;
+    --teinte: #222226;
+    --teinte-resume: #1b1b1e;
+    --bouton-fond: #ededed;
+    --bouton-texte: #111;
+    --ligne: rgba(255, 255, 255, .08);
+    --ligne-forte: rgba(255, 255, 255, .16);
+    --verre: rgba(23, 23, 26, .84);
+    --ombre-1: 0 1px 2px rgba(0,0,0,.4);
+    --ombre-2: 0 1px 2px rgba(0,0,0,.5), 0 8px 24px -6px rgba(0,0,0,.6);
+    --ombre-3: 0 2px 6px rgba(0,0,0,.5), 0 24px 60px -12px rgba(0,0,0,.8);
+    --anneau: 0 0 0 3px rgba(255, 255, 255, .16);
+    --voile: rgba(0, 0, 0, .6);
+    --couleur-erreur: #ff7a6e;
+    --couleur-succes: #5fd37e;
+    --couleur-alerte: #f5a742;
+    --couleur-info: #6cb0f5;
+  }
+}
+/* --- Variables : thème sombre forcé ------------------------------------------------ */
+:root[data-theme="dark"] {
+  --noir: #ededed;
+  --gris-fonce: #b4b4b8;
+  --gris: #86868b;
+  --gris-clair: #2c2c30;
+  --fond: #0e0e10;
+  --surface: #17171a;
+  --teinte: #222226;
+  --teinte-resume: #1b1b1e;
+  --bouton-fond: #ededed;
+  --bouton-texte: #111;
+  --ligne: rgba(255, 255, 255, .08);
+  --ligne-forte: rgba(255, 255, 255, .16);
+  --verre: rgba(23, 23, 26, .84);
+  --ombre-1: 0 1px 2px rgba(0,0,0,.4);
+  --ombre-2: 0 1px 2px rgba(0,0,0,.5), 0 8px 24px -6px rgba(0,0,0,.6);
+  --ombre-3: 0 2px 6px rgba(0,0,0,.5), 0 24px 60px -12px rgba(0,0,0,.8);
+  --anneau: 0 0 0 3px rgba(255, 255, 255, .16);
+  --voile: rgba(0, 0, 0, .6);
+  --couleur-erreur: #ff7a6e;
+  --couleur-succes: #5fd37e;
+  --couleur-alerte: #f5a742;
+  --couleur-info: #6cb0f5;
+}
+
+/* --- Base -------------------------------------------------------------------------- */
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  background: var(--fond);
+  color: var(--noir);
+  font-family: var(--police-interface);
+  font-size: 15px;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+h1, h2, h3, h4 { letter-spacing: -0.012em; }
+a { color: var(--noir); text-decoration-thickness: 1px; text-underline-offset: 3px; text-decoration-color: var(--ligne-forte); transition: text-decoration-color var(--transition), color var(--transition); }
+a:hover { text-decoration-color: currentColor; }
+::selection { background: var(--noir); color: var(--fond); }
+:focus-visible { outline: 2px solid var(--noir); outline-offset: 2px; }
+button { font-family: inherit; font-weight: 500; }
+
+/* Petit titre de section : capitales espacées */
+.titre-section {
+  font-size: .8rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: .07em;
+  color: var(--gris-fonce);
+  margin: 0 0 12px;
+}
+.titre-marque { font-family: var(--police-titre); font-weight: 600; letter-spacing: .02em; }
+.texte-discret { color: var(--gris); font-size: .9rem; }

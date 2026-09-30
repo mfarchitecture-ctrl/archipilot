@@ -1,11 +1,9 @@
-// appearanceModal.js — modal de personnalisation : couleur d'accentuation et
-// image de fond. Les réglages s'appliquent immédiatement (pas de bouton
-// « enregistrer »), comme la bascule clair/sombre.
+// appearanceModal.js — modal de personnalisation : couleur et image de fond.
+// Les réglages s'appliquent immédiatement (pas de bouton « enregistrer »),
+// comme la bascule clair/sombre.
 
 import { el, clear } from '../utils/dom.js';
 import * as appearance from '../appearance.js';
-
-const ACCENT_PAR_DEFAUT = '#6d5ef8';
 
 export function openAppearanceModal() {
   const racine = document.getElementById('modal-root');
@@ -30,32 +28,10 @@ export function openAppearanceModal() {
     }
     urlApercuFond = await appearance.getBackgroundImageURL();
 
-    const couleurActuelle = appearance.getAccentColor() || ACCENT_PAR_DEFAUT;
-
-    const champCouleur = el('input', {
-      type: 'color',
-      className: 'color-swatch-input',
-      value: couleurActuelle,
-      onInput: (e) => appearance.setAccentColor(e.target.value),
-    });
-
-    const boutonResetCouleur = el(
-      'button',
-      {
-        type: 'button',
-        className: 'btn btn-ghost btn-small',
-        onClick: () => {
-          appearance.resetAccentColor();
-          dessiner();
-        },
-      },
-      'Couleur par défaut'
-    );
-
     const couleurFondActuelle =
       appearance.getBackgroundColor() ||
-      getComputedStyle(document.documentElement).getPropertyValue('--bg').trim() ||
-      '#f4f5fb';
+      getComputedStyle(document.documentElement).getPropertyValue('--fond').trim() ||
+      '#f5f5f3';
 
     const champCouleurFond = el('input', {
       type: 'color',
@@ -130,10 +106,6 @@ export function openAppearanceModal() {
         el('button', { type: 'button', className: 'btn btn-icon', onClick: fermer }, '✕'),
       ]),
       el('div', { className: 'modal-body' }, [
-        el('div', { className: 'appearance-section' }, [
-          el('span', { className: 'form-field__label' }, 'Couleur d’accentuation'),
-          el('div', { className: 'appearance-row' }, [champCouleur, boutonResetCouleur]),
-        ]),
         el('div', { className: 'appearance-section' }, [
           el('span', { className: 'form-field__label' }, 'Couleur de fond'),
           el('div', { className: 'appearance-row' }, [champCouleurFond, boutonResetCouleurFond]),

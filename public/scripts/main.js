@@ -45,7 +45,8 @@ function nomDepuisChemin(chemin) {
  *  partout où "ARCHIPILOT"/"A" apparaissait auparavant : sidebar, écran de connexion,
  *  titre de l'onglet et en-tête d'impression. */
 function majNomApp(nomFichier) {
-  const nom = nomFichier ? nomFichier.replace(/\.json$/i, '') : 'ARCHIPILOT';
+  const nomBrut = nomFichier ? nomFichier.replace(/\.json$/i, '') : '';
+  const nom = !nomBrut || nomBrut.toLowerCase() === 'archipilot-data' ? 'ARCHIPILOT' : nomBrut;
   const lettre = nom.charAt(0).toUpperCase();
   nomAppActuel = nom;
 

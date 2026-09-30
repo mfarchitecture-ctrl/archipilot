@@ -94,8 +94,7 @@ fichiers. Demande explicite du 2026-09-30.
 - Écoute uniquement sur `127.0.0.1` (pas d'exposition réseau local).
 - **`storage.js`** (front) — appelle l'API du serveur via `fetch`. Pas
   d'IndexedDB, pas de permission à gérer côté navigateur.
-- **`appearance.js`** — couleur d'accentuation (unique, pas de dégradé —
-  voir "Préférences UI" ci-dessous), couleur de fond, image de fond
+- **`appearance.js`** — couleur de fond, image de fond
   (compressée en JPEG côté client, stockée en IndexedDB, 1920px max).
   Réglages **locaux à ce PC** (localStorage + IndexedDB), indépendants du
   fichier de données JSON.
@@ -159,10 +158,23 @@ fichiers. Demande explicite du 2026-09-30.
 
 ## Préférences UI établies (à respecter sans re-demander)
 
-- **Couleur d'accent unique, jamais de dégradé.** L'utilisateur a
-  explicitement demandé de retirer le dégradé violet→rose d'origine.
-  `--accent-2` == `--accent` toujours (voir `appearance.js` et les valeurs
-  par défaut dans `main.css`).
+- **Charte graphique commune (2026-09-30).** L'utilisateur développe 5
+  applis qui doivent être visuellement cohérentes (KELZONE = référence).
+  La charte vit dans son propre dépôt (`C:\Users\laxim\CHARTE`, GitHub
+  `mfarchitecture-ctrl/charte`). `public/charte.css` + `public/polices/` en
+  sont des **copies** : ne pas les modifier ici, modifier la charte puis
+  recopier. `main.css` n'a plus de couleur en dur : ses variables (`--bg`,
+  `--text`, `--accent`...) sont des **alias** vers la charte (`--fond`,
+  `--noir`...). Règle : **le noir est l'interface, la couleur est une donnée
+  ou une erreur** (badges statut/priorité, retard). **Plus d'accent
+  violet, plus de dégradé, plus d'accent personnalisable** (supprimé de la
+  modale Apparence). Retard/échéance proche = liseré de 3px à gauche de la
+  ligne, pas d'aplat de couleur. Pas de soulèvement au survol (pas de
+  `translateY`), seulement ombre + bordure. Les composants d'ARCHIPILOT
+  (`.btn`, `.badge`, `.input`...) gardent leurs noms ; `charte-composants.css`
+  n'est PAS chargé ici (collision de noms), à adopter plus tard si besoin.
+  Le nom affiché en haut de la sidebar est celui du fichier connecté
+  (ex. « STUDIO CYMA »), sauf `archipilot-data` qui s'affiche « ARCHIPILOT ».
 - **Cartes projet en carré fixe (280×280px), non responsive.**
   `grid-template-columns: repeat(auto-fill, 280px)` — pas de `1fr`/`minmax`
   qui étirerait les cartes. Contenu compact en haut (titre, stats,
@@ -326,3 +338,6 @@ fichiers. Demande explicite du 2026-09-30.
   `C:\Users\laxim\ARCHIPILOT`, dépôt git privé créé et poussé sur GitHub
   (`main` + `preprod`). Décision : appli hébergée et protégée par mot de
   passe (voir "Décision en cours"), plan d'hébergement à définir.
+  Application de la charte graphique commune (voir Préférences UI) :
+  palette monochrome, polices Outfit auto-hébergées, suppression de
+  l'accent personnalisable, tableau à liserés de retard.

@@ -1,14 +1,12 @@
 // appearance.js
 // -----------------------------------------------------------------------------
-// Personnalisation visuelle : couleur d'accentuation, couleur de fond et image
-// de fond, en plus du thème clair/sombre (géré dans main.js). Réglage propre à
-// ce PC/profil (comme le thème) — pas stocké dans le fichier de données JSON
-// partagé, donc non partagé avec le fichier de données.
+// Personnalisation visuelle : couleur de fond et image de fond, en plus du
+// thème clair/sombre (géré dans main.js). Pas de couleur d'accent : la charte
+// graphique commune est monochrome. Réglage propre à ce PC/profil (comme le
+// thème) — pas stocké dans le fichier de données JSON.
 // -----------------------------------------------------------------------------
 
-import { couleurContraste } from './utils/color.js';
-
-const CLE_ACCENT = 'archipilot-accent-color';
+const CLE_ACCENT_OBSOLETE = 'archipilot-accent-color';
 const CLE_BG_COULEUR = 'archipilot-bg-color';
 const NOM_BASE = 'archipilot-appearance-db';
 const NOM_STORE = 'images';
@@ -85,41 +83,6 @@ function redimensionner(fichier) {
   });
 }
 
-// --- Couleur d'accentuation ----------------------------------------------------
-
-export function getAccentColor() {
-  return localStorage.getItem(CLE_ACCENT);
-}
-
-export function applyAccentColor(hex) {
-  const racine = document.documentElement.style;
-  const proprietes = ['--accent', '--accent-2', '--accent-hover', '--accent-contrast', '--accent-soft', '--accent-ring', '--accent-glow'];
-
-  if (!hex) {
-    proprietes.forEach((prop) => racine.removeProperty(prop));
-    return;
-  }
-
-  // Couleur unique : pas de dégradé, --accent-2 reprend la même teinte que --accent.
-  racine.setProperty('--accent', hex);
-  racine.setProperty('--accent-2', hex);
-  racine.setProperty('--accent-hover', `color-mix(in srgb, ${hex} 88%, white)`);
-  racine.setProperty('--accent-contrast', couleurContraste(hex));
-  racine.setProperty('--accent-soft', `color-mix(in srgb, ${hex} 16%, var(--bg-elevated))`);
-  racine.setProperty('--accent-ring', `color-mix(in srgb, ${hex} 30%, transparent)`);
-  racine.setProperty('--accent-glow', `0 8px 24px -8px color-mix(in srgb, ${hex} 55%, transparent)`);
-}
-
-export function setAccentColor(hex) {
-  localStorage.setItem(CLE_ACCENT, hex);
-  applyAccentColor(hex);
-}
-
-export function resetAccentColor() {
-  localStorage.removeItem(CLE_ACCENT);
-  applyAccentColor(null);
-}
-
 // --- Couleur de fond ---------------------------------------------------------------
 // S'applique au fond de base (--bg) quand aucune image de fond n'est définie ;
 // une image de fond reste prioritaire visuellement (voir .has-bg-image, CSS).
@@ -179,7 +142,7 @@ export async function clearBackgroundImage() {
 
 /** À appeler une fois au démarrage : applique la couleur et le fond déjà enregistrés. */
 export async function init() {
-  applyAccentColor(getAccentColor());
+  localStorage.removeItem(CLE_ACCENT_OBSOLETE);
   applyBackgroundColor(getBackgroundColor());
   try {
     const blob = await lireFondStocke();
