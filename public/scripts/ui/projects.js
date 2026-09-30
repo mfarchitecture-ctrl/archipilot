@@ -10,22 +10,28 @@ import {
   countTasksForProject,
   updateProjectPhase,
 } from '../state.js';
-import { el, elSvg, clear } from '../utils/dom.js';
+import { el, clear } from '../utils/dom.js';
+import { icone } from '../../charte-icones.js';
 import { formatDate } from '../utils/dates.js';
 
-/** Enrobe un glyphe (✎, 🗑…) pour corriger son centrage optique dans les
- * boutons ronds (voir .btn-icon-outline__glyphe en CSS). */
-function glyphe(texte) {
-  return el('span', { className: 'btn-icon-outline__glyphe' }, texte);
+/** Icône calendrier (hérite de currentColor), utilisée devant l'échéance. */
+function iconeCalendrier() {
+  return icone('calendrier', { taille: 15 });
 }
 
-/** Icône calendrier monochrome (hérite de currentColor), utilisée devant l'échéance. */
-function iconeCalendrier() {
-  return elSvg('svg', { viewBox: '0 0 24 24', fill: 'none', 'aria-hidden': 'true' }, [
-    elSvg('rect', { x: 3, y: 5, width: 18, height: 16, rx: 2, stroke: 'currentColor', 'stroke-width': 1.9 }),
-    elSvg('path', { d: 'M3 9.5h18', stroke: 'currentColor', 'stroke-width': 1.9 }),
-    elSvg('path', { d: 'M8 3v4M16 3v4', stroke: 'currentColor', 'stroke-width': 1.9, 'stroke-linecap': 'round' }),
-  ]);
+/** Bouton de suppression d'un projet (carte ou ligne de liste). */
+function boutonSupprimer(project, supprimer) {
+  return el(
+    'button',
+    {
+      type: 'button',
+      className: 'btn-icone btn-icone--danger',
+      title: 'Supprimer',
+      'aria-label': 'Supprimer',
+      onClick: () => supprimer(project),
+    },
+    icone('poubelle')
+  );
 }
 
 const CLE_VUE_PROJETS = 'archipilot-projects-view';
@@ -175,7 +181,7 @@ export function renderProjects(container, { onOpenProject }) {
     boutonListe.classList.toggle('active', vue === 'liste');
 
     boutonSens.disabled = tri.par === '';
-    boutonSens.textContent = tri.sens === 'desc' ? '▼' : '▲';
+    boutonSens.replaceChildren(icone(tri.sens === 'desc' ? 'fleche-bas' : 'fleche-haut', { taille: 15 }));
     boutonSens.title = tri.sens === 'desc' ? 'Ordre décroissant' : 'Ordre croissant';
 
     clear(zoneProjets);
@@ -244,18 +250,7 @@ function construireGrille(resumes, onOpenProject) {
             { className: 'project-card__footer', onClick: (e) => e.stopPropagation() },
             [
               construirePhaseSelect(project),
-              el('div', { className: 'project-card__footer-actions' }, [
-                el(
-                  'button',
-                  {
-                    type: 'button',
-                    className: 'btn-icon-outline btn-icon-outline--danger',
-                    title: 'Supprimer',
-                    onClick: () => supprimer(project),
-                  },
-                  glyphe('🗑')
-                ),
-              ]),
+              el('div', { className: 'project-card__footer-actions' }, [boutonSupprimer(project, supprimer)]),
             ]
           ),
         ]
@@ -331,18 +326,7 @@ function construireListe(resumes, onOpenProject) {
           el(
             'div',
             { className: 'project-list-row__actions', onClick: (e) => e.stopPropagation() },
-            [
-              el(
-                'button',
-                {
-                  type: 'button',
-                  className: 'btn-icon-outline btn-icon-outline--danger',
-                  title: 'Supprimer',
-                  onClick: () => supprimer(project),
-                },
-                glyphe('🗑')
-              ),
-            ]
+            [boutonSupprimer(project, supprimer)]
           ),
         ]
       )

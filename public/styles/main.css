@@ -361,25 +361,6 @@ p {
   height: 17px;
 }
 
-.theme-toggle__moon {
-  display: none;
-}
-
-:root[data-theme='dark'] .theme-toggle__sun {
-  display: none;
-}
-:root[data-theme='dark'] .theme-toggle__moon {
-  display: block;
-}
-@media (prefers-color-scheme: dark) {
-  :root:not([data-theme='light']) .theme-toggle__sun {
-    display: none;
-  }
-  :root:not([data-theme='light']) .theme-toggle__moon {
-    display: block;
-  }
-}
-
 .content {
   padding: 2rem 2.5rem 3rem;
   overflow-x: auto;
@@ -508,30 +489,6 @@ p {
 
 .btn-danger-text {
   color: var(--danger);
-}
-
-.btn-icon {
-  background: transparent;
-  border: none;
-  padding: 0.4rem;
-  width: 30px;
-  height: 30px;
-  color: var(--text-muted);
-  font-size: 0.95rem;
-  border-radius: 999px;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.btn-icon:hover {
-  background: var(--bg-hover);
-  color: var(--text);
-}
-
-.btn-icon--danger:hover {
-  color: var(--danger);
-  background: var(--danger-soft);
 }
 
 /* --- Champs de formulaire -------------------------------------------------------- */
@@ -728,8 +685,8 @@ input[type='search'].input {
   white-space: nowrap;
 }
 
-.row-actions .btn + .btn {
-  margin-left: 0.25rem;
+.row-actions .btn-icone + .btn-icone {
+  margin-left: 2px;
 }
 
 /* --- Badges ---------------------------------------------------------------------- */
@@ -801,11 +758,6 @@ input[type='search'].input {
 }
 
 /* --- Édition en ligne (modal projet) ------------------------------------------------ */
-
-.btn-icon--add {
-  font-weight: 700;
-  line-height: 1;
-}
 
 .input--compact {
   padding: 0.4rem 0.55rem;
@@ -957,48 +909,6 @@ input[type='search'].input {
   display: flex;
   gap: 0.5rem;
   flex-shrink: 0;
-}
-
-/* --- Boutons ronds à contour (actions rapides sur les cartes/listes) --------------- */
-
-.btn-icon-outline {
-  width: 40px;
-  height: 40px;
-  flex-shrink: 0;
-  border-radius: 999px;
-  border: 1.5px solid var(--border-strong);
-  background: var(--bg-elevated);
-  color: var(--text-muted);
-  font-family: inherit;
-  font-size: 1.15rem;
-  line-height: 1;
-  cursor: pointer;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  transition: background var(--transition), border-color var(--transition), color var(--transition);
-}
-
-/* Les glyphes ✎/🗑 ont une encre visuellement décalée vers le haut par
-   rapport au centre géométrique de leur boîte de texte (mesuré : ~5% de la
-   hauteur) : on les recentre optiquement dans le cercle avec ce léger décalage. */
-.btn-icon-outline__glyphe {
-  display: inline-block;
-  transform: translateY(0.08em);
-}
-
-.btn-icon-outline:hover {
-  background: var(--bg-hover);
-  color: var(--text);
-}
-
-.btn-icon-outline--danger {
-  border-color: color-mix(in srgb, var(--danger) 45%, var(--border-strong));
-  color: var(--danger);
-}
-
-.btn-icon-outline--danger:hover {
-  background: var(--danger-soft);
 }
 
 /* --- Modal / formulaire tâche -------------------------------------------------------- */

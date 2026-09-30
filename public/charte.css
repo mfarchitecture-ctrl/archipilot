@@ -1,6 +1,6 @@
 /* =====================================================================================
    CHARTE GRAPHIQUE — socle commun des applications (KELZONE, ARCHIPILOT, ...)
-   Version 1.2.0 — variables, polices, base. Les composants sont dans charte-composants.css.
+   Version 1.3.0 — variables, polices, base, icônes, interrupteur de thème. Les composants sont dans charte-composants.css.
 
    Règle maîtresse : le noir est l'interface ; la couleur est une donnée (statut,
    priorité, catégorie) ou une erreur. Aucune couleur d'accent décorative.
@@ -153,3 +153,74 @@ button { font-family: inherit; font-weight: 500; }
 }
 .titre-marque { font-family: var(--police-titre); font-weight: 600; letter-spacing: .02em; }
 .texte-discret { color: var(--gris); font-size: .9rem; }
+
+/* --- Icônes ------------------------------------------------------------------------
+   Pictogrammes au trait (voir charte-icones.js) : la couleur est celle du texte. Le tracé
+   (trait de 2, bouts arrondis) est porté par les attributs du <svg>. */
+.icone { width: 18px; height: 18px; flex-shrink: 0; }
+
+/* Bouton-icône : carré de 36 px, sans cadre ni fond, gris ; fond discret au survol.
+   L'action de suppression ne devient rouge qu'au survol (le noir reste l'interface). */
+.btn-icone {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  padding: 0;
+  border: 0;
+  border-radius: 9px;
+  background: transparent;
+  color: var(--gris-fonce);
+  cursor: pointer;
+  flex-shrink: 0;
+  transition: background-color var(--transition), color var(--transition);
+}
+.btn-icone .icone { width: 19px; height: 19px; }
+.btn-icone:hover:not(:disabled) { background: var(--teinte); color: var(--noir); }
+.btn-icone[aria-pressed="true"] { background: var(--teinte); color: var(--noir); }
+.btn-icone:disabled { opacity: .4; cursor: default; }
+.btn-icone--danger:hover:not(:disabled) {
+  background: color-mix(in srgb, var(--donnee-rouge) 13%, transparent);
+  color: var(--donnee-rouge);
+}
+.btn-icone--petit { width: 30px; height: 30px; }
+.btn-icone--petit .icone { width: 16px; height: 16px; }
+
+/* --- Interrupteur de thème clair/sombre (celui de KELZONE) ---------------------------
+   Piste grise, pastille blanche ; en sombre la piste devient noire (= couleur de l'interface)
+   et la pastille glisse à droite. Logique : charte-theme.js. */
+.bouton-theme {
+  display: inline-flex;
+  align-items: center;
+  flex-shrink: 0;
+  height: auto;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+}
+.toggle-piste {
+  display: block;
+  position: relative;
+  box-sizing: border-box;
+  width: 34px;
+  height: 20px;
+  border-radius: 999px;
+  border: 1px solid var(--ligne-forte);
+  background: var(--gris-clair);
+  transition: background-color .2s ease, border-color .2s ease;
+}
+.toggle-bouton {
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: var(--surface);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, .3);
+  transition: transform .25s cubic-bezier(.3, 1.4, .5, 1);
+}
+.bouton-theme.actif .toggle-piste { background: var(--noir); border-color: var(--noir); }
+.bouton-theme.actif .toggle-bouton { transform: translateX(14px); background: var(--fond); }

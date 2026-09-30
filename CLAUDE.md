@@ -173,6 +173,15 @@ fichiers. Demande explicite du 2026-09-30.
   `translateY`), seulement ombre + bordure. Les composants d'ARCHIPILOT
   (`.btn`, `.badge`, `.input`...) gardent leurs noms ; `charte-composants.css`
   n'est PAS chargé ici (collision de noms), à adopter plus tard si besoin.
+  **Icônes et thème (charte v1.3.0)** : `public/charte-icones.js` et
+  `public/charte-theme.js` sont aussi des copies de la charte. Toutes les
+  icônes passent par `icone('nom')` (au trait, style KELZONE) ; plus de
+  glyphe texte (✎ 🗑 ✕) ni d'emoji. Boutons d'action = `.btn-icone` (carré
+  36px gris, `--danger` rouge au survol seulement). Le thème clair/sombre
+  est l'interrupteur de KELZONE (`.bouton-theme`), valeurs `dark`/`light`
+  dans `archipilot-theme` (migration des anciennes valeurs `sombre`/`clair`
+  dans `main.js`). Les imports de ces modules depuis `ui/*.js` sont en
+  `'../../charte-icones.js'`.
   Le nom affiché en haut de la sidebar est celui du fichier connecté
   (ex. « STUDIO CYMA »), sauf `archipilot-data` qui s'affiche « ARCHIPILOT ».
 - **Cartes projet en carré fixe (280×280px), non responsive.**

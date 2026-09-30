@@ -4,6 +4,7 @@ import * as storage from './storage.js';
 import * as state from './state.js';
 import * as appearance from './appearance.js';
 import { withFocusPreserved } from './utils/dom.js';
+import { initialiserTheme } from '../charte-theme.js';
 import { renderTaskList } from './ui/taskList.js';
 import { renderProjects } from './ui/projects.js';
 import { openProjectModal } from './ui/projectModal.js';
@@ -198,28 +199,16 @@ btnSelectFileHeader.addEventListener('click', () => {
 
 const CLE_THEME = 'archipilot-theme';
 
-function appliquerTheme(theme) {
-  if (theme === 'clair' || theme === 'sombre') {
-    document.documentElement.dataset.theme = theme === 'sombre' ? 'dark' : 'light';
-  } else {
-    delete document.documentElement.dataset.theme; // suit prefers-color-scheme
-  }
+// Anciennes valeurs ('clair' / 'sombre') -> valeurs de la charte ('light' / 'dark').
+try {
+  const ancien = localStorage.getItem(CLE_THEME);
+  if (ancien === 'sombre') localStorage.setItem(CLE_THEME, 'dark');
+  else if (ancien === 'clair') localStorage.setItem(CLE_THEME, 'light');
+} catch {
+  // stockage indisponible : le thème suivra simplement le système
 }
 
-(function initTheme() {
-  const themeSauvegarde = localStorage.getItem(CLE_THEME);
-  if (themeSauvegarde) appliquerTheme(themeSauvegarde);
-})();
-
-btnThemeToggle.addEventListener('click', () => {
-  const media = window.matchMedia('(prefers-color-scheme: dark)');
-  const actuellementSombre = document.documentElement.dataset.theme
-    ? document.documentElement.dataset.theme === 'dark'
-    : media.matches;
-  const nouveauTheme = actuellementSombre ? 'clair' : 'sombre';
-  appliquerTheme(nouveauTheme);
-  localStorage.setItem(CLE_THEME, nouveauTheme);
-});
+initialiserTheme(btnThemeToggle, CLE_THEME);
 
 btnAppearance.addEventListener('click', openAppearanceModal);
 appearance.init();

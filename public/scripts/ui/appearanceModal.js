@@ -3,6 +3,7 @@
 // comme la bascule clair/sombre.
 
 import { el, clear } from '../utils/dom.js';
+import { icone } from '../../charte-icones.js';
 import * as appearance from '../appearance.js';
 
 export function openAppearanceModal() {
@@ -103,7 +104,7 @@ export function openAppearanceModal() {
     const modal = el('div', { className: 'modal modal--appearance' }, [
       el('div', { className: 'modal-header' }, [
         el('h2', {}, 'Personnaliser l’apparence'),
-        el('button', { type: 'button', className: 'btn btn-icon', onClick: fermer }, '✕'),
+        el('button', { type: 'button', className: 'btn-icone', title: 'Fermer', 'aria-label': 'Fermer', onClick: fermer }, icone('fermer')),
       ]),
       el('div', { className: 'modal-body' }, [
         el('div', { className: 'appearance-section' }, [

@@ -17,6 +17,7 @@ import {
   deleteTask,
 } from '../state.js';
 import { el, clear } from '../utils/dom.js';
+import { icone } from '../../charte-icones.js';
 import { formatDate, formatDaysRemaining, isOverdue, isDueSoon } from '../utils/dates.js';
 import { capitaliser, slugStatut } from '../utils/labels.js';
 import { openTaskForm } from './taskForm.js';
@@ -256,18 +257,19 @@ function renderLigne(task, rerender) {
     el('td', { className: 'row-actions no-print' }, [
       el(
         'button',
-        { type: 'button', className: 'btn btn-icon', title: 'Modifier', onClick: () => openTaskForm({ task }) },
-        '✎'
+        { type: 'button', className: 'btn-icone', title: 'Modifier', 'aria-label': 'Modifier', onClick: () => openTaskForm({ task }) },
+        icone('crayon')
       ),
       el(
         'button',
         {
           type: 'button',
-          className: 'btn btn-icon btn-icon--danger',
+          className: 'btn-icone btn-icone--danger',
           title: 'Supprimer',
+          'aria-label': 'Supprimer',
           onClick: () => confirmerSuppression(task),
         },
-        '🗑'
+        icone('poubelle')
       ),
     ]),
   ]);

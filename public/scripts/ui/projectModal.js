@@ -7,6 +7,7 @@
 
 import { getProjectById, renameProject, updateProjectInfo, getTasksForProject, deleteTask } from '../state.js';
 import { el, clear } from '../utils/dom.js';
+import { icone } from '../../charte-icones.js';
 import { formatDate, formatDaysRemaining, isOverdue, isDueSoon } from '../utils/dates.js';
 import { capitaliser, slugStatut } from '../utils/labels.js';
 import { openTaskForm } from './taskForm.js';
@@ -123,11 +124,12 @@ export function openProjectModal(projectId) {
       'button',
       {
         type: 'button',
-        className: 'btn btn-primary btn-small btn-icon--add',
+        className: 'btn btn-primary btn-small',
         title: 'Ajouter une tâche',
+        'aria-label': 'Ajouter une tâche',
         onClick: () => ouvrirFormulaireTache({ projectId: project.id }),
       },
-      '+'
+      icone('plus', { taille: 16 })
     );
 
     const lignes = taches.map((task) => renderLigneTache(task, { rerender, ouvrirFormulaireTache }));
@@ -159,7 +161,7 @@ export function openProjectModal(projectId) {
       el('div', { className: 'modal-header' }, [
         titreProjet,
         champInfo,
-        el('button', { type: 'button', className: 'btn btn-icon', onClick: fermer }, '✕'),
+        el('button', { type: 'button', className: 'btn-icone', title: 'Fermer', 'aria-label': 'Fermer', onClick: fermer }, icone('fermer')),
       ]),
       el('div', { className: 'modal-body' }, [
         el('div', { className: 'project-modal__tasks-header' }, [
@@ -201,21 +203,23 @@ function renderLigneTache(task, { rerender, ouvrirFormulaireTache }) {
         'button',
         {
           type: 'button',
-          className: 'btn btn-icon',
+          className: 'btn-icone',
           title: 'Modifier',
+          'aria-label': 'Modifier',
           onClick: () => ouvrirFormulaireTache({ task }),
         },
-        '✎'
+        icone('crayon')
       ),
       el(
         'button',
         {
           type: 'button',
-          className: 'btn btn-icon btn-icon--danger',
+          className: 'btn-icone btn-icone--danger',
           title: 'Supprimer',
+          'aria-label': 'Supprimer',
           onClick: () => confirmerSuppression(task, rerender),
         },
-        '🗑'
+        icone('poubelle')
       ),
     ]),
   ]);

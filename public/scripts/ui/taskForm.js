@@ -5,6 +5,7 @@
 
 import { PRIORITES, STATUTS, getProjects, getProjectById, addTask, updateTask, deleteTask } from '../state.js';
 import { el } from '../utils/dom.js';
+import { icone } from '../../charte-icones.js';
 
 function capitaliser(texte) {
   return texte.charAt(0).toUpperCase() + texte.slice(1);
@@ -159,7 +160,7 @@ export function openTaskForm({ task = null, projectId = null, onClose = null } =
   const modal = el('div', { className: 'modal' }, [
     el('div', { className: 'modal-header' }, [
       el('h2', {}, estEdition ? 'Modifier la tâche' : 'Nouvelle tâche'),
-      el('button', { type: 'button', className: 'btn btn-icon', onClick: fermer }, '✕'),
+      el('button', { type: 'button', className: 'btn-icone', title: 'Fermer', 'aria-label': 'Fermer', onClick: fermer }, icone('fermer')),
     ]),
     el('div', { className: 'modal-body' }, formulaire),
   ]);
