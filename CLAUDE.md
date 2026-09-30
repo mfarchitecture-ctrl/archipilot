@@ -58,6 +58,14 @@ Décisions du 2026-09-30 sur ce chantier :
   l'existant + export de sauvegarde ; 5) Worker + D1 sur `preprod` ; 6)
   comptes utilisateur/compagne. Une étape à la fois, sans coder la
   suivante sans accord.
+- **Objectif commercial (2026-09-30)** : à terme, vendre un **bundle de 5
+  applis** (dont KELZONE et ARCHIPILOT). Priorité : que les clients n'aient
+  aucune impression d'arnaque (transparence, sérieux, données exportables
+  et supprimables, pas de service tiers inutile, pas de promesse de
+  sécurité « absolue »). Conséquences : comptes partagés entre les 5
+  applis (une seule identité), briques communes (chiffrement, connexion,
+  charte) dans un socle partagé et non dans ARCHIPILOT seul, avis d'experts
+  (sécurité, juridique/RGPD, comptable) avant les premiers clients payants.
 - **Deux utilisateurs prévus** : l'utilisateur et sa compagne.
   `archipilot-data/STUDIO CYMA.json` est le fichier de sa compagne : **à
   conserver tel quel** (jamais commité, jamais modifié) ; ses données seront
