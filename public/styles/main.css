@@ -28,14 +28,14 @@
   --accent-glow: none;
 
   /* États (couleur = donnée) */
-  --danger: var(--couleur-erreur);
-  --danger-soft: color-mix(in srgb, var(--couleur-erreur) 12%, transparent);
-  --warning: var(--couleur-alerte);
-  --warning-soft: color-mix(in srgb, var(--couleur-alerte) 13%, transparent);
-  --success: var(--couleur-succes);
-  --success-soft: color-mix(in srgb, var(--couleur-succes) 13%, transparent);
-  --info: var(--couleur-info);
-  --info-soft: color-mix(in srgb, var(--couleur-info) 13%, transparent);
+  --danger: var(--donnee-rouge);
+  --danger-soft: color-mix(in srgb, var(--donnee-rouge) 13%, transparent);
+  --warning: var(--donnee-orange);
+  --warning-soft: color-mix(in srgb, var(--donnee-orange) 13%, transparent);
+  --success: var(--donnee-vert);
+  --success-soft: color-mix(in srgb, var(--donnee-vert) 13%, transparent);
+  --info: var(--donnee-bleu);
+  --info-soft: color-mix(in srgb, var(--donnee-bleu) 13%, transparent);
 
   /* Badges priorité */
   --priority-haute-bg: var(--danger-soft);

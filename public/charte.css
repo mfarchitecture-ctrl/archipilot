@@ -1,6 +1,6 @@
 /* =====================================================================================
    CHARTE GRAPHIQUE — socle commun des applications (KELZONE, ARCHIPILOT, ...)
-   Version 1.1.0 — variables, polices, base. Les composants sont dans charte-composants.css.
+   Version 1.2.0 — variables, polices, base. Les composants sont dans charte-composants.css.
 
    Règle maîtresse : le noir est l'interface ; la couleur est une donnée (statut,
    priorité, catégorie) ou une erreur. Aucune couleur d'accent décorative.
@@ -37,11 +37,22 @@
   --anneau: 0 0 0 3px rgba(20, 20, 20, .12);
   --voile: rgba(20, 20, 20, .45);
 
-  /* Couleurs de donnée (jamais décoratives) */
+  /* Couleurs de message (erreur de saisie, confirmation) : celles de KELZONE */
   --couleur-erreur: #b42318;
   --couleur-succes: #17803d;
-  --couleur-alerte: #b25e09;
-  --couleur-info: #1d5fa8;
+
+  /* Couleurs de donnée (statut, priorité, retard, catégorie) : jamais décoratives.
+     Reprises des couleurs de zonage de KELZONE (--vz-u / -au / -a / -n), avec leur
+     variante sombre. Le bleu est celui de la parcelle survolée de KELZONE (#0b63c5),
+     éclairci en sombre. Sur un fond, on les utilise avec de la transparence
+     (color-mix 12-13 %), jamais en aplat. */
+  --donnee-rouge: #c9473d;
+  --donnee-orange: #c9770f;
+  --donnee-jaune: #9a8a00;
+  --donnee-vert: #3d8f3d;
+  --donnee-bleu: #0b63c5;
+  --couleur-alerte: var(--donnee-orange);
+  --couleur-info: var(--donnee-bleu);
 
   /* Formes et rythme */
   --rayon-s: 6px;
@@ -75,8 +86,11 @@
     --voile: rgba(0, 0, 0, .6);
     --couleur-erreur: #ff7a6e;
     --couleur-succes: #5fd37e;
-    --couleur-alerte: #f5a742;
-    --couleur-info: #6cb0f5;
+    --donnee-rouge: #e8746b;
+    --donnee-orange: #f5a742;
+    --donnee-jaune: #f5e642;
+    --donnee-vert: #7cc47c;
+    --donnee-bleu: #79a9df;
   }
 }
 /* --- Variables : thème sombre forcé ------------------------------------------------ */
@@ -101,8 +115,11 @@
   --voile: rgba(0, 0, 0, .6);
   --couleur-erreur: #ff7a6e;
   --couleur-succes: #5fd37e;
-  --couleur-alerte: #f5a742;
-  --couleur-info: #6cb0f5;
+  --donnee-rouge: #e8746b;
+  --donnee-orange: #f5a742;
+  --donnee-jaune: #f5e642;
+  --donnee-vert: #7cc47c;
+  --donnee-bleu: #79a9df;
 }
 
 /* --- Base -------------------------------------------------------------------------- */
