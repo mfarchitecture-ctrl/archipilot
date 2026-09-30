@@ -9,8 +9,8 @@
     {
       "binding": "DB",
       "database_name": "archipilot",
-      // À remplacer par l'identifiant de la base créée dans Cloudflare (Workers & Pages > D1).
-      "database_id": "A_REMPLIR"
+      // Base créée le 2026-10-01 dans Cloudflare (D1 SQL database).
+      "database_id": "72c5f5e8-593e-4d17-a6a5-26a26a12d529"
     }
   ]
   // Secret à définir dans Cloudflare (Settings > Variables and Secrets) : CODE_INVITATION.
