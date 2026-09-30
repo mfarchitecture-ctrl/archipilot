@@ -1,9 +1,40 @@
 # ARCHIPILOT — Contexte projet pour Claude
 
 Ce fichier est lu automatiquement par Claude Code à l'ouverture d'une session
-dans ce dossier (sur n'importe quel PC, puisque le dossier est dans Dropbox).
+dans ce dossier (le projet vit dans `C:\Users\laxim\ARCHIPILOT`, hors Dropbox,
+synchronisé entre postes par GitHub).
 Il remplace le besoin de recoller l'historique de conversation : il résume
 l'état du projet, les décisions prises et les préférences de l'utilisateur.
+
+## Git et branches — à lire en PREMIER
+
+Méthode de travail détaillée : `METHODE-DE-TRAVAIL-KELZONE.md` (à lire en
+entier seulement si besoin de détail). Résumé :
+- Dépôt GitHub **privé** : `https://github.com/mfarchitecture-ctrl/archipilot`.
+- Première commande de session : `git branch --show-current` → on doit être
+  sur `preprod`, puis `git pull`.
+- `preprod` = tout le travail ; `main` = production, **fusionnée seulement
+  sur demande explicite** de l'utilisateur. Jamais de commit direct sur
+  `main`, jamais de `push --force`.
+- **Une question est une question, pas une demande de code** : répondre, ne
+  rien modifier tant que l'utilisateur ne l'a pas demandé.
+- Toujours dire ce qui a été testé en réel et ce qui l'a été en simulé.
+- `.gitignore` : `runtime/win/node.exe` et `archipilot-data/` (données
+  clients réelles) ne sont **jamais** commités.
+- Les identifiants GitHub sont gérés par l'utilisateur ; je ne crée aucun
+  compte. Les `git push` sont faits après accord.
+- Le dossier Dropbox d'origine (`E:\Dropbox\ARCHIPILOT`) a été abandonné
+  (2026-09-30) : git dans Dropbox est fragile.
+
+## Décision en cours (2026-09-30) : passage à une appli hébergée
+
+L'utilisateur veut **remplacer complètement l'usage local par une appli
+web hébergée**, **protégée par mot de passe**. Les sections "Architecture" et
+"Lancement" ci-dessous décrivent l'état **actuel** (local Windows : accès
+disque direct, fenêtre app, boîtes de dialogue natives, `/api/pin-window`) ;
+ces parties devront être repensées (stockage des données hébergé, plus de
+`start.bat`/fenêtre app). Plateforme, stockage et authentification **pas
+encore choisis** : à discuter, une étape à la fois, sans coder avant accord.
 
 **Maintenance : à la fin d'une session avec des changements notables,
 mets à jour ce fichier** (section "État actuel" si l'architecture a changé,
@@ -291,3 +322,8 @@ fichier JSON lors du rebranding). Ne pas le "corriger" en `archipilot-data.json`
   Fonctionnalité confirmée fonctionnelle par l'utilisateur sur sa machine ;
   voir le piège "Tester une fonctionnalité de fenêtre OS..." ci-dessus pour
   la limite de vérification rencontrée côté agent.
+- **2026-09-30** : Raccourci Bureau créé automatiquement par `start.bat`
+  (chemin du Bureau résolu dynamiquement). Projet sorti de Dropbox vers
+  `C:\Users\laxim\ARCHIPILOT`, dépôt git privé créé et poussé sur GitHub
+  (`main` + `preprod`). Décision : appli hébergée et protégée par mot de
+  passe (voir "Décision en cours"), plan d'hébergement à définir.
