@@ -22,7 +22,9 @@ entier seulement si besoin de détail). Résumé :
 - `.gitignore` : `runtime/win/node.exe` et `archipilot-data/` (données
   clients réelles) ne sont **jamais** commités.
 - Les identifiants GitHub sont gérés par l'utilisateur ; je ne crée aucun
-  compte. Les `git push` sont faits après accord.
+  compte. **Push sur `preprod` direct, sans redemander** (demande du
+  2026-10-01), une fois le changement testé. Préprod en ligne :
+  https://preprod-archipilot.mf-archi.workers.dev (base D1 de test).
 - Le dossier Dropbox d'origine (`E:\Dropbox\ARCHIPILOT`) a été abandonné
   (2026-09-30) : git dans Dropbox est fragile.
 
