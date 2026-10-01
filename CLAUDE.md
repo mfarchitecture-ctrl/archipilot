@@ -247,6 +247,51 @@ fichier JSON lors du rebranding). Ne pas le "corriger" en `archipilot-data.json`
   vraie session. Voir `/api/pin-window` dans Architecture pour le cas
   concret qui a révélé ça.
 
+## Roadmap de développement
+
+Objectif : développer l'app ensemble, dans le bon ordre, en commençant par
+la **base** (connexion au fichier de données, puis esthétique) avant toute
+nouvelle fonctionnalité. Cocher `[x]` et dater quand une étape est livrée ;
+ajuster l'ordre avec l'utilisateur plutôt que de sauter une étape.
+
+### Étape 1 — Base : connexion et fiabilité des données
+- [ ] Audit de l'existant : relire `server.js`, `storage.js`, `main.js`
+      (premier lancement, fichier introuvable/corrompu/verrouillé, changement
+      de fichier) et lister les cas qui plantent ou restent silencieux.
+- [ ] Écran de connexion clair : état « aucun fichier », choisir / créer,
+      message explicite si le fichier a disparu (dossier synchronisé hors
+      ligne, disque déconnecté).
+- [ ] Écritures sûres : écriture atomique (fichier temporaire puis
+      renommage) et sauvegarde automatique de la dernière version valide
+      avant écrasement.
+- [ ] Détection des modifications externes (le fichier est dans un dossier
+      synchronisé, possible conflit entre deux PC) : prévenir au lieu
+      d'écraser.
+- [ ] Validation et migration du JSON (anciens projets sans `phase`,
+      champs manquants) à la lecture.
+- [ ] Indicateur discret d'état d'enregistrement (enregistré / erreur).
+
+### Étape 2 — Esthétique et cohérence visuelle
+- [ ] Relevé des incohérences : espacements, tailles de police, états
+      hover/focus, rendu clair vs sombre, responsive (seuils 860/480px).
+- [ ] Système de design minimal dans `main.css` : variables (couleurs,
+      rayons, ombres, espacements) utilisées partout, sans dégradé et avec
+      couleur d'accent unique (voir Préférences UI).
+- [ ] Polissage des composants : boutons, badges, modals, tableau,
+      cartes projet, menu latéral.
+- [ ] États vides, messages d'erreur et retours utilisateur soignés.
+- [ ] Accessibilité de base : contrastes, focus clavier, libellés.
+
+### Étape 3 — Confort d'usage (à préciser avec l'utilisateur)
+- [ ] Raccourcis clavier, annulation d'une suppression, tri/filtres
+      mémorisés.
+- [ ] Impression / export à retravailler (`ui/print.js`).
+
+### Étape 4 — Fonctionnalités (backlog, non priorisé)
+- Planning / calendrier, rappels d'échéance, suivi enrichi (honoraires,
+  documents, contacts), exports. À prioriser seulement quand les étapes
+  1 et 2 sont terminées.
+
 ## Journal des sessions
 
 - **2026-09-15** : Conversion navigateur → fenêtre app dédiée. Refonte
@@ -291,3 +336,6 @@ fichier JSON lors du rebranding). Ne pas le "corriger" en `archipilot-data.json`
   Fonctionnalité confirmée fonctionnelle par l'utilisateur sur sa machine ;
   voir le piège "Tester une fonctionnalité de fenêtre OS..." ci-dessus pour
   la limite de vérification rencontrée côté agent.
+- **2026-10-01** : Ajout de la section "Roadmap de développement" (base
+  connexion/fiabilité d'abord, puis esthétique, confort, backlog
+  fonctionnalités). Aucun changement de code.
