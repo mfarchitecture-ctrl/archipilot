@@ -145,9 +145,9 @@ export function openTaskForm({ task = null, projectId = null, onClose = null } =
     };
 
     if (estEdition) {
-      await updateTask(task.id, donnees);
+      updateTask(task.id, donnees);
     } else {
-      await addTask(donnees);
+      addTask(donnees);
     }
     fermer();
   });

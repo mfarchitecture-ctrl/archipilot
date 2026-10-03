@@ -90,6 +90,9 @@ function notify() {
   subscribers.forEach((fn) => fn());
 }
 
+// Les mutations préviennent l'interface (notify) AVANT d'enregistrer : en mode hébergé l'envoi
+// chiffré prend 1 à 2 s, et l'écran doit réagir tout de suite. Les erreurs d'enregistrement sont
+// signalées par la ligne de statut (voir persister dans main.js).
 async function persist() {
   if (persistHandler) {
     await persistHandler({ projects, tasks });
@@ -119,8 +122,8 @@ export function getProjectById(id) {
 export async function addProject(name) {
   const project = { id: crypto.randomUUID(), name: name.trim(), info: '', phase: PHASES[0] };
   projects.push(project);
-  await persist();
   notify();
+  persist();
   return project;
 }
 
@@ -128,8 +131,8 @@ export async function renameProject(id, name) {
   const project = getProjectById(id);
   if (!project) return;
   project.name = name.trim();
-  await persist();
   notify();
+  persist();
 }
 
 /** Change la phase d'un projet (EDL, ESQ, AVP, DCE, DET, AOR). */
@@ -137,8 +140,8 @@ export async function updateProjectPhase(id, phase) {
   const project = getProjectById(id);
   if (!project) return;
   project.phase = phase;
-  await persist();
   notify();
+  persist();
 }
 
 /** Met à jour les informations libres (accès, contacts, particularités…) d'un projet. */
@@ -146,8 +149,8 @@ export async function updateProjectInfo(id, info) {
   const project = getProjectById(id);
   if (!project) return;
   project.info = info;
-  await persist();
   notify();
+  persist();
 }
 
 export function countTasksForProject(id) {
@@ -162,8 +165,8 @@ export function countTasksForProject(id) {
 export async function deleteProject(id) {
   projects = projects.filter((p) => p.id !== id);
   tasks = tasks.filter((t) => t.projectId !== id);
-  await persist();
   notify();
+  persist();
 }
 
 // --- Tâches --------------------------------------------------------------------
@@ -171,8 +174,8 @@ export async function deleteProject(id) {
 export async function addTask(taskData) {
   const task = { id: crypto.randomUUID(), ...taskData };
   tasks.push(task);
-  await persist();
   notify();
+  persist();
   return task;
 }
 
@@ -180,14 +183,14 @@ export async function updateTask(id, patch) {
   const task = tasks.find((t) => t.id === id);
   if (!task) return;
   Object.assign(task, patch);
-  await persist();
   notify();
+  persist();
 }
 
 export async function deleteTask(id) {
   tasks = tasks.filter((t) => t.id !== id);
-  await persist();
   notify();
+  persist();
 }
 
 // --- Filtres / vue courante ------------------------------------------------------

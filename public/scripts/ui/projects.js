@@ -105,9 +105,9 @@ export function renderProjects(container, { onOpenProject }) {
         const champ = e.target.elements.nomProjet;
         const nom = champ.value.trim();
         if (!nom) return;
-        await addProject(nom);
         champ.value = '';
         champ.focus();
+        addProject(nom);
       },
     },
     [
