@@ -8,8 +8,12 @@ const TOUCHES_SPECIALES = {
   '+': 'Plus', Home: 'Home', End: 'End', PageUp: 'PageUp', PageDown: 'PageDown',
 };
 
+// Pavé numérique : Electron l'appelle autrement que la rangée du haut (« numadd » et non « Plus »).
+const PAVE_NUMERIQUE = { NumpadAdd: 'numadd', NumpadSubtract: 'numsub', NumpadMultiply: 'nummult', NumpadDivide: 'numdiv', NumpadDecimal: 'numdec' };
+
 function accelerateurDepuis(e) {
-  const touche = TOUCHES_SPECIALES[e.key] || (e.key.length === 1 ? e.key.toUpperCase() : /^F\d{1,2}$/.test(e.key) ? e.key : null);
+  const pave = PAVE_NUMERIQUE[e.code] || (/^Numpad\d$/.test(e.code) ? 'num' + e.code.slice(6) : null);
+  const touche = pave || TOUCHES_SPECIALES[e.key] || (e.key.length === 1 ? e.key.toUpperCase() : /^F\d{1,2}$/.test(e.key) ? e.key : null);
   if (!touche) return null; // touche de modification seule : on attend la suite
   const modificateurs = [];
   if (e.ctrlKey) modificateurs.push('Control');
