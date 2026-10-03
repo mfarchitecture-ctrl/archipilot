@@ -12,7 +12,7 @@ const path = require('path');
 const REGLAGES_PAR_DEFAUT = {
   url: 'https://preprod-archipilot.mf-archi.workers.dev', // à remplacer par l'adresse de production le moment venu
   raccourciAfficher: 'Control+Alt+A',
-  raccourciSaisie: 'Control+Alt+Space',
+  raccourciSaisie: 'Alt+Plus',
   lancerAuDemarrage: false,
 };
 

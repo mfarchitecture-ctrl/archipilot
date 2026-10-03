@@ -5,7 +5,7 @@ const retour = $('retour');
 const TOUCHES_SPECIALES = {
   ' ': 'Space', ArrowUp: 'Up', ArrowDown: 'Down', ArrowLeft: 'Left', ArrowRight: 'Right',
   Enter: 'Return', Escape: 'Esc', Tab: 'Tab', Insert: 'Insert', Delete: 'Delete',
-  Home: 'Home', End: 'End', PageUp: 'PageUp', PageDown: 'PageDown',
+  '+': 'Plus', Home: 'Home', End: 'End', PageUp: 'PageUp', PageDown: 'PageDown',
 };
 
 function accelerateurDepuis(e) {
