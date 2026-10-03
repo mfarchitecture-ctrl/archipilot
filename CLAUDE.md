@@ -449,3 +449,9 @@ fichiers. Demande explicite du 2026-09-30.
   du menu latéral et sur l'écran de connexion ; `desktop/package.json` suit
   le même numéro. À **augmenter à chaque livraison notable** (0.0.x tant que
   l'appli est en construction). Actuelle : 0.0.2.
+- **Appli Windows (`desktop/`) mise de côté (2026-10-03)** : fonctionnelle
+  (installateur 0.0.2 fabriqué, raccourci de saisie rapide validé par
+  l'utilisateur), mais **on n'y touche plus pour l'instant**. Priorité :
+  finaliser l'esthétique et les fonctionnalités de la **version en ligne
+  uniquement**. Mises à jour automatiques de l'enveloppe Windows (electron-
+  updater + Cloudflare R2) : proposées, **refusées pour le moment**.
