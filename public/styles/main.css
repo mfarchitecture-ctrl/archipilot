@@ -327,6 +327,22 @@ p {
   box-shadow: 0 0 0 3px var(--success-soft);
 }
 
+.version-app {
+  margin: 0;
+  font-size: 0.72rem;
+  color: var(--text-faint);
+  text-align: center;
+}
+
+.sidebar-footer .version-app {
+  text-align: left;
+  padding-left: 1rem;
+}
+
+.app.sidebar-collapsed .version-app {
+  display: none;
+}
+
 .sync-status--error::before {
   background: var(--danger);
   box-shadow: 0 0 0 3px var(--danger-soft);

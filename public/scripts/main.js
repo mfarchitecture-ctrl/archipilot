@@ -3,6 +3,8 @@
 import * as storage from './storage.js';
 import * as compte from './compte.js';
 import { estPreprod, connexionAutomatique } from './preprod-auto.js';
+import { VERSION } from './version.js';
+
 import * as state from './state.js';
 import * as appearance from './appearance.js';
 import { withFocusPreserved } from './utils/dom.js';
@@ -15,6 +17,11 @@ import { preparerImpression } from './ui/print.js';
 import { afficherConnexion } from './ui/loginScreen.js';
 import { openAccountModal } from './ui/accountModal.js';
 import { icone } from '../charte-icones.js';
+
+// Numéro de version (menu latéral et écran de connexion).
+document.querySelectorAll('[data-version]').forEach((el) => {
+  el.textContent = `Version ${VERSION}`;
+});
 
 const appRoot = document.getElementById('app');
 const connectScreen = document.getElementById('connect-screen');

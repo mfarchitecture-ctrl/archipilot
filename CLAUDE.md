@@ -444,3 +444,8 @@ fichiers. Demande explicite du 2026-09-30.
   le navigateur sur le simulateur local ; l'appli Electron elle-même
   (fenêtres, raccourcis globaux) n'a **pas** été lancée par l'agent : à
   tester par l'utilisateur (`cd desktop; npm install; npm start`).
+- **Numéro de version** (demande du 2026-10-03) : source unique
+  `public/scripts/version.js` (`VERSION`), affiché « Version 0.0.x » en bas
+  du menu latéral et sur l'écran de connexion ; `desktop/package.json` suit
+  le même numéro. À **augmenter à chaque livraison notable** (0.0.x tant que
+  l'appli est en construction). Actuelle : 0.0.2.

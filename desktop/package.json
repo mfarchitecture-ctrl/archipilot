@@ -1,7 +1,7 @@
 {
   "name": "archipilot-bureau",
   "productName": "ARCHIPILOT",
-  "version": "0.1.0",
+  "version": "0.0.2",
   "description": "ARCHIPILOT pour Windows : affiche la version en ligne, avec raccourcis clavier globaux et saisie rapide.",
   "main": "main.js",
   "private": true,
