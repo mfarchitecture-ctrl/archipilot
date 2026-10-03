@@ -7,6 +7,10 @@ archipilot-data/
 # Base locale du simulateur Cloudflare (outils/simulateur-cloudflare.mjs)
 .dev/
 
+# Appli Windows (Electron) : dépendances et installateurs générés
+desktop/node_modules/
+desktop/dist/
+
 # Fichiers système / éditeur
 Thumbs.db
 .DS_Store

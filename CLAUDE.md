@@ -433,3 +433,14 @@ fichiers. Demande explicite du 2026-09-30.
   Application de la charte graphique commune (voir Préférences UI) :
   palette monochrome, polices Outfit auto-hébergées, suppression de
   l'accent personnalisable, tableau à liserés de retard.
+- **2026-10-03** : Préprod : connexion automatique à un compte de test
+  (`public/scripts/preprod-auto.js`, actif seulement si l'adresse commence
+  par `preprod-`). Début de l'**appli Windows (Electron)** dans `desktop/` :
+  affiche la version en ligne (cross-save naturel, mêmes données chiffrées),
+  raccourci global « afficher » (défaut Ctrl+Alt+A) et « saisie rapide »
+  (défaut Ctrl+Alt+Espace), modifiables dans Réglages (icône de la zone de
+  notification). Page de saisie rapide `public/saisie-rapide.html` (projet
+  avec autocomplétion, tâche, priorité, échéance) : **testée en réel** dans
+  le navigateur sur le simulateur local ; l'appli Electron elle-même
+  (fenêtres, raccourcis globaux) n'a **pas** été lancée par l'agent : à
+  tester par l'utilisateur (`cd desktop; npm install; npm start`).

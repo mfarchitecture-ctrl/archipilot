@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ARCHIPILOT — Saisie rapide</title>
+  <link rel="icon" href="favicon.ico" sizes="any" />
+  <link rel="stylesheet" href="charte.css" />
+  <link rel="stylesheet" href="styles/main.css" />
+  <link rel="stylesheet" href="styles/saisie-rapide.css" />
+</head>
+<body class="sr-body">
+  <main class="sr" id="sr">
+    <p class="sr__message" id="sr-message" hidden></p>
+
+    <form id="sr-form" autocomplete="off" hidden>
+      <div class="sr__champ sr__champ--projet">
+        <input id="sr-projet" class="input" type="text" placeholder="Projet…" aria-label="Projet" role="combobox" aria-expanded="false" aria-controls="sr-liste" />
+        <ul id="sr-liste" class="sr__liste" role="listbox" hidden></ul>
+      </div>
+      <input id="sr-titre" class="input" type="text" placeholder="Tâche…" aria-label="Tâche" />
+      <div class="sr__ligne">
+        <label class="sr__etiquette">Priorité
+          <select id="sr-priorite" class="input">
+            <option value="haute">Haute</option>
+            <option value="moyenne" selected>Moyenne</option>
+            <option value="basse">Basse</option>
+          </select>
+        </label>
+        <label class="sr__etiquette">Échéance
+          <input id="sr-echeance" class="input" type="date" />
+        </label>
+      </div>
+      <p class="sr__erreur" id="sr-erreur" role="alert" hidden></p>
+      <div class="sr__pied">
+        <p class="sr__aide">Entrée : ajouter · Échap : fermer · Tab : champ suivant</p>
+        <button type="submit" class="btn btn-primary">Ajouter</button>
+      </div>
+    </form>
+  </main>
+  <script type="module" src="scripts/saisie-rapide.js"></script>
+</body>
+</html>
