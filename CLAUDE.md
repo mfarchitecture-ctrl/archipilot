@@ -16,6 +16,13 @@ entier seulement si besoin de détail). Résumé :
 - `preprod` = tout le travail ; `main` = production, **fusionnée seulement
   sur demande explicite** de l'utilisateur. Jamais de commit direct sur
   `main`, jamais de `push --force`.
+- **Toujours vérifier que le dossier local et GitHub sont raccord** (demande
+  du 2026-10-03) : en début de session ET avant de dire « c'est à jour »,
+  faire `git fetch`, `git status -sb` et comparer `git rev-parse HEAD` avec
+  `origin/preprod` (et `origin/main`). Si ça diverge (commits en avance/en
+  retard, fichiers non commités), le signaler à l'utilisateur et resynchroniser
+  (pull / commit + push) avant de continuer. Un clone cloud peut être sur
+  `main` ou une ancienne branche : ne jamais supposer qu'il reflète `preprod`.
 - **Une question est une question, pas une demande de code** : répondre, ne
   rien modifier tant que l'utilisateur ne l'a pas demandé.
 - Toujours dire ce qui a été testé en réel et ce qui l'a été en simulé.
