@@ -2,6 +2,7 @@
 
 import * as storage from './storage.js';
 import * as compte from './compte.js';
+import { estPreprod, connexionAutomatique } from './preprod-auto.js';
 import * as state from './state.js';
 import * as appearance from './appearance.js';
 import { withFocusPreserved } from './utils/dom.js';
@@ -282,6 +283,16 @@ async function demarrerModeCompte(config) {
   if (reprise.deverrouille) {
     await ouvrirDonneesCompte();
     return;
+  }
+  if (estPreprod()) {
+    try {
+      await connexionAutomatique();
+      await ouvrirDonneesCompte();
+      return;
+    } catch (erreur) {
+      afficherConnexionCompte({ message: erreur.message });
+      return;
+    }
   }
   afficherConnexionCompte({
     identifiant: reprise.identifiant || '',
